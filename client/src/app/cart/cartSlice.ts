@@ -13,6 +13,8 @@ export interface addCartActionInput {
   product: CartItem;
 }
 
+//UPDATE QUANTITY INDIVIDUAL
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -25,13 +27,27 @@ const cartSlice = createSlice({
         JSON.parse(localStorage.getItem('cart') as string) || initializeCart;
       state.products = products;
     },
+    removeCartItem(state, action: PayloadAction<{ id: string }>) {
+      const updatedCart = state.products.filter((item) => item.id !== action.payload.id);
+      state.products = updatedCart;
+      localStorage.setItem('cart', JSON.stringify(state));
+    },
+    //actualizar cantidad de item cuando esta en el carrito
+    updateQuantity(state, action: PayloadAction<{ product: CartItem }>) {
+      state.products.forEach((product) => {
+        if (product.id === action.payload.product.id) {
+          product.selectedQuantity = action.payload.product.selectedQuantity;
+        }
+      });
+      localStorage.setItem('cart', JSON.stringify(state));
+    },
     addCartItem(state, action: PayloadAction<addCartActionInput>) {
       //si el item ya esta en el carrito
       const existingItem = state.products.find(
         (item) => item.id === action.payload.product.id
       );
 
-      //si el item ya existe en carrito y si se agrega otro con
+      //si el item ya existe en carrito y si, se agrega otro con
       //diferente cantidad
       const existingItemDiffSelectedQuantity = () => {
         if (existingItem) {
@@ -68,5 +84,6 @@ const cartSlice = createSlice({
   extraReducers: {},
 });
 
-export const { addCartItem, initializeCart } = cartSlice.actions;
+export const { addCartItem, initializeCart, removeCartItem, updateQuantity } =
+  cartSlice.actions;
 export const cartReducer = cartSlice.reducer;

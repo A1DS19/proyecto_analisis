@@ -18,7 +18,6 @@ import { ErrorMessageForm } from '../common/ErrorMessageForm';
 import { Formik, FormikHelpers, Form, ErrorMessage, FormikProps } from 'formik';
 import { FunctionComponent } from 'react';
 import { loginValidationSchema } from '../common/validationSchemas/authValidation';
-import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { login } from '../../app/auth/authActions';
 
@@ -56,6 +55,7 @@ export const Login: FunctionComponent<loginProps> = ({
             validationSchema={loginValidationSchema}
             onSubmit={async (values: LoginInput, helpers: FormikHelpers<LoginInput>) => {
               await dispatch(login(values));
+              onClose();
             }}
           >
             {(props: FormikProps<LoginInput>) => {

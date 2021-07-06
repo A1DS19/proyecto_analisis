@@ -1,15 +1,15 @@
 import { Box, useColorModeValue, Stack, Heading, Image, Text } from '@chakra-ui/react';
 import React from 'react';
 import { Product } from '../../app/products/types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 interface ProductItemProps {
   product: Product;
 }
 
 export const ProductItem: React.FC<ProductItemProps> = ({ product }): JSX.Element => {
-  const IMAGE =
-    'https://iamafoodblog.b-cdn.net/wp-content/uploads/2012/07/takoyaki-recipe-4792w.jpg';
+  const history = useHistory();
+
   return (
     <Box
       my={4}
@@ -24,6 +24,8 @@ export const ProductItem: React.FC<ProductItemProps> = ({ product }): JSX.Elemen
       zIndex={1}
     >
       <Box
+        onClick={() => history.push(`/product/${product.id}`)}
+        cursor='pointer'
         rounded={'lg'}
         mt={-12}
         pos={'relative'}
@@ -36,7 +38,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ product }): JSX.Elemen
           pos: 'absolute',
           top: 5,
           left: 0,
-          backgroundImage: `url(${product.images as any})`,
+          backgroundImage: `url(${product.images[0]})`,
           filter: 'blur(15px)',
           zIndex: -1,
         }}
@@ -51,7 +53,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ product }): JSX.Elemen
           height={230}
           width={282}
           objectFit={'cover'}
-          src={product.images as any}
+          src={product.images[0]}
         />
       </Box>
       <Stack pt={10} align={'center'}>
@@ -69,7 +71,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ product }): JSX.Elemen
         </Heading>
         <Stack direction={'row'} align={'center'}>
           <Text fontWeight={800} fontSize={'xl'}>
-            ${product.price}
+            ₡{product.price}
           </Text>
         </Stack>
       </Stack>

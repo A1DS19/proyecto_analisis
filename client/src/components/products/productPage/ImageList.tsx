@@ -12,6 +12,12 @@ export const ImageList: React.FC<ImageListProps> = ({
 }): JSX.Element => {
   const [currentImage, setCurrentImage] = React.useState(images[0]);
 
+  React.useEffect(() => {
+    setSelectedImage(images[0]);
+  }, [setSelectedImage, images]);
+
+  if (!images) return <React.Fragment></React.Fragment>;
+
   const renderImages = () => {
     return images.map((image) => {
       return (
