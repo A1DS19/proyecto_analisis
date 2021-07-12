@@ -11,6 +11,7 @@ import {
   Image,
   Text,
   Button,
+  Input,
 } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 import { useAppSelector } from '../../hooks/hooks';
@@ -26,6 +27,8 @@ export const Navbar: React.FC<NavbarProps> = (): JSX.Element => {
   const { isAuth, user } = useAppSelector((state) => state.auth);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { products } = useAppSelector((state) => state.cart);
+  const [product, setProduct] = React.useState('');
+
   const Links: string[] = [];
   const history = useHistory();
   const NavLink = ({ children }: { children: ReactNode }) => (
@@ -68,6 +71,17 @@ export const Navbar: React.FC<NavbarProps> = (): JSX.Element => {
                 <NavLink key={link}>{link}</NavLink>
               ))}
             </HStack>
+
+            <Input
+              value={product}
+              onChange={(e) => {
+                setProduct(e.target.value);
+                console.log(product);
+              }}
+              size='md'
+              placeholder='Buscar producto'
+              focusBorderColor='gray.500'
+            />
           </HStack>
           <Stack direction='row' spacing={4}>
             <Button

@@ -3,10 +3,12 @@ import { api, delay } from '../api';
 
 export const fetchProducts = createAsyncThunk(
   'product/fecthProducts',
-  async (_, { rejectWithValue }) => {
+  async (category: string, { rejectWithValue }) => {
     try {
       delay(2000);
-      const { data } = await api.get(`/products`);
+      const { data } = await api.get(
+        category ? `/products?category=${category}` : `/products`
+      );
       return data;
     } catch (err: any) {
       rejectWithValue(err.message);

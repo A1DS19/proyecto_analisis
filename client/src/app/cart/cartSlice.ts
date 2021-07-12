@@ -13,8 +13,6 @@ export interface addCartActionInput {
   product: CartItem;
 }
 
-//UPDATE QUANTITY INDIVIDUAL
-
 const cartSlice = createSlice({
   name: 'cart',
   initialState,

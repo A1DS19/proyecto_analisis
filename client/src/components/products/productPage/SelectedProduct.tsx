@@ -53,7 +53,8 @@ export const SelectedProduct: React.FC<SelectedProductProps> = (): JSX.Element =
     <React.Fragment>
       <Button
         size='md'
-        my={3}
+        mt={3}
+        mb={5}
         leftIcon={<FaArrowLeft />}
         onClick={() => history.goBack()}
       >
@@ -68,18 +69,18 @@ export const SelectedProduct: React.FC<SelectedProductProps> = (): JSX.Element =
                 images={selectedProduct?.images!}
               />
             </Box>
-            <Box mx={2}>
+            <Box ml={4}>
               <Image
                 borderRadius='2xl'
-                maxWidth='400px'
-                maxHeight='400px'
+                maxWidth='500px'
+                maxHeight='500px'
                 src={selectedImage}
                 alt='imagen producto'
               />
             </Box>
           </Flex>
         </Box>
-        <Box ml={3}>
+        <Box mx={4}>
           <Heading size='lg'>{selectedProduct?.name}</Heading>
           <Stack direction='row' my={3}>
             <Text fontWeight='bold'>Precio</Text>
@@ -117,12 +118,11 @@ export const SelectedProduct: React.FC<SelectedProductProps> = (): JSX.Element =
               Agregar
             </Button>
           </Stack>
+          <Box my={4}>
+            <Text>{selectedProduct?.description}</Text>
+          </Box>
         </Box>
       </Grid>
-
-      <Box my={3} maxWidth='650px'>
-        <Text>{selectedProduct?.description}</Text>
-      </Box>
     </React.Fragment>
   );
 };

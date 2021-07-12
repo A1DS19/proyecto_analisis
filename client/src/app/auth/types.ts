@@ -13,3 +13,9 @@ export interface AuthResponse {
   user: User | null;
   isAuth: boolean;
 }
+
+// interface Category {
+//   id: string;
+//   name: string;
+//   image: string;
+// }

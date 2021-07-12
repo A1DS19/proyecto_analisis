@@ -2,6 +2,7 @@ import {
   Box,
   Container,
   Flex,
+  Heading,
   Stack,
   Text,
   Tooltip,
@@ -13,6 +14,7 @@ import { useAppSelector } from '../../hooks/hooks';
 import { CartItem } from '../../app/cart/types';
 import { Login } from '../auth/Login';
 import { CheckIcon } from '@chakra-ui/icons';
+import { Link, useHistory } from 'react-router-dom';
 
 interface CartIndexProps {}
 
@@ -20,12 +22,24 @@ export const CartIndex: React.FC<CartIndexProps> = (): JSX.Element => {
   const { products } = useAppSelector((state) => state.cart);
   const { isAuth } = useAppSelector((state) => state.auth);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const history = useHistory();
   const total = (products as []).reduce((acc, curr: CartItem) => {
     return (acc += curr.price * curr.selectedQuantity);
   }, 0);
 
   if (!products.length) {
-    return <Container maxW='container.md'>VACIO:(</Container>;
+    return (
+      <Container maxW='container.md'>
+        <Box padding={5} textAlign='center' bg='gray.700' borderRadius='lg'>
+          <Heading>No hay productos :(</Heading>
+          <Link to='/'>
+            <Text color='#3182ce' fontSize='lg'>
+              Volver
+            </Text>
+          </Link>
+        </Box>
+      </Container>
+    );
   }
 
   const handleCheckout = () => {
@@ -34,7 +48,7 @@ export const CartIndex: React.FC<CartIndexProps> = (): JSX.Element => {
       return;
     }
 
-    //seguir con formulario
+    history.push('/cart/checkout');
   };
 
   return (

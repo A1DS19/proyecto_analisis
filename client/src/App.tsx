@@ -6,7 +6,9 @@ import { Navbar } from './components/nav/Navbar';
 import { SelectedProduct } from './components/products/productPage/SelectedProduct';
 import { useAppDispatch } from './hooks/hooks';
 import { CartIndex } from './components/cart/CartIndex';
+import { CheckoutIndex } from './components/cart/checkout/CheckoutIndex';
 import { initializeCart } from './app/cart/cartSlice';
+import { CreateOrderSuccess } from './components/cart/checkout/CreateOrderSuccess';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -23,7 +25,9 @@ function App() {
             <Index />
           </Route>
           <Route path='/product/:id' component={SelectedProduct} />
-          <Route path='/cart' component={CartIndex} />
+          <Route exact path='/cart' component={CartIndex} />
+          <Route exact path='/cart/checkout' component={CheckoutIndex} />
+          <Route exact path='/cart/checkout/success' component={CreateOrderSuccess} />
         </Switch>
       </Container>
     </Router>

@@ -8,3 +8,9 @@ export interface Product {
   category: string;
   createdAt: Date;
 }
+
+export interface Category {
+  name: string;
+  image: string;
+  id: string;
+}
