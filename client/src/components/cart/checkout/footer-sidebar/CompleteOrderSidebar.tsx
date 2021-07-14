@@ -3,7 +3,7 @@ import { Box, Button, Divider, Text, Heading } from '@chakra-ui/react';
 import { FormikProps } from 'formik';
 import React from 'react';
 import { CartItem } from '../../../../app/cart/types';
-import { Order } from '../../../../app/orders/types';
+import { Order } from '../../../../app/user/types';
 
 interface CompleteOrderSidebarProps {
   products: CartItem[];
@@ -12,6 +12,7 @@ interface CompleteOrderSidebarProps {
   storePickup: boolean;
   props: FormikProps<Order>;
   isFormValid: boolean;
+  submitting: boolean;
 }
 
 export const CompleteOrderSidebar: React.FC<CompleteOrderSidebarProps> = ({
@@ -21,12 +22,13 @@ export const CompleteOrderSidebar: React.FC<CompleteOrderSidebarProps> = ({
   storePickup,
   props,
   isFormValid,
+  submitting,
 }): JSX.Element => {
   return (
     <Box bg='gray.700' padding={3} borderRadius='lg'>
       <Button
         disabled={!isFormValid}
-        //isLoading={loading}
+        isLoading={submitting}
         type='submit'
         width='100%'
         leftIcon={<CheckIcon />}

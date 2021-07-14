@@ -1,5 +1,5 @@
 import { Product } from './types';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { fetchProduct, fetchProducts } from './productActions';
 
 interface ProductState {

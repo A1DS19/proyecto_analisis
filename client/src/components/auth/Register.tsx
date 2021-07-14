@@ -17,7 +17,7 @@ import { Formik, Form, FormikProps, FormikHelpers, ErrorMessage } from 'formik';
 import { FunctionComponent } from 'react';
 import { registerValidationSchema } from '../common/validationSchemas/authValidation';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { register } from '../../app/auth/authActions';
+import { register } from '../../app/user/userActions';
 
 interface registerProps {
   onOpen: () => void;
@@ -40,7 +40,7 @@ export const Register: FunctionComponent<registerProps> = ({
   onClose,
 }): JSX.Element => {
   const dispatch = useAppDispatch();
-  const { error, loading } = useAppSelector((state) => state.auth);
+  const { error, loading } = useAppSelector((state) => state.user);
   const initialValues: RegisterInput = {
     email: '',
     name: '',

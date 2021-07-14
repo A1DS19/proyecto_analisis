@@ -10,7 +10,7 @@ import { OrderCartList } from '../reviewOrder/OrderCartList';
 import React from 'react';
 import { CartItem } from '../../../../app/cart/types';
 import { FormikProps } from 'formik';
-import { Order } from '../../../../app/orders/types';
+import { Order } from '../../../../app/user/types';
 
 interface ReviewOrderProps {
   products: CartItem[];

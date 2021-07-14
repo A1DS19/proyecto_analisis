@@ -11,23 +11,22 @@ import {
   Image,
   Text,
   Button,
-  Input,
 } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 import { useAppSelector } from '../../hooks/hooks';
 import { NoAuth } from './NoAuth';
 import { Auth } from './Auth';
 import { useHistory } from 'react-router-dom';
-import { User } from '../../app/auth/types';
+import { User } from '../../app/user/types';
 import { FiShoppingCart } from 'react-icons/fi';
+import { SearchProduct } from '../products/SearchProduct';
 
 interface NavbarProps {}
 
 export const Navbar: React.FC<NavbarProps> = (): JSX.Element => {
-  const { isAuth, user } = useAppSelector((state) => state.auth);
+  const { isAuth, user } = useAppSelector((state) => state.user);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { products } = useAppSelector((state) => state.cart);
-  const [product, setProduct] = React.useState('');
 
   const Links: string[] = [];
   const history = useHistory();
@@ -71,17 +70,7 @@ export const Navbar: React.FC<NavbarProps> = (): JSX.Element => {
                 <NavLink key={link}>{link}</NavLink>
               ))}
             </HStack>
-
-            <Input
-              value={product}
-              onChange={(e) => {
-                setProduct(e.target.value);
-                console.log(product);
-              }}
-              size='md'
-              placeholder='Buscar producto'
-              focusBorderColor='gray.500'
-            />
+            <SearchProduct />
           </HStack>
           <Stack direction='row' spacing={4}>
             <Button

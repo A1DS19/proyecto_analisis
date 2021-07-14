@@ -1,7 +1,7 @@
 import { FormikProps } from 'formik';
 import React from 'react';
 import { CartItem } from '../../../../app/cart/types';
-import { Order } from '../../../../app/orders/types';
+import { Order } from '../../../../app/user/types';
 import { OrderCartItem } from './OrderCartItem';
 
 interface CartListProps {

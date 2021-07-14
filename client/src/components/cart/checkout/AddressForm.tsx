@@ -1,5 +1,5 @@
 import { ErrorMessage, FormikProps } from 'formik';
-import { Order } from '../../../app/orders/types';
+import { Order } from '../../../app/user/types';
 import { getCantones, getDistritos, getProvincias } from '../../../util/useGetAddress';
 import React from 'react';
 import { Box, FormControl, FormLabel, Select, Textarea } from '@chakra-ui/react';

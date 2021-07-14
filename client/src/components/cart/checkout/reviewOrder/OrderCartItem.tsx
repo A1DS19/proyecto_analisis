@@ -1,16 +1,4 @@
-import { CloseIcon } from '@chakra-ui/icons';
-import {
-  Box,
-  Flex,
-  Heading,
-  Image,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CartItem as ICartItem } from '../../../../app/cart/types';

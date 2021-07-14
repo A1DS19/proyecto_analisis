@@ -19,7 +19,7 @@ import { Formik, FormikHelpers, Form, ErrorMessage, FormikProps } from 'formik';
 import { FunctionComponent } from 'react';
 import { loginValidationSchema } from '../common/validationSchemas/authValidation';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { login } from '../../app/auth/authActions';
+import { login } from '../../app/user/userActions';
 
 interface loginProps {
   onOpen: () => void;
@@ -37,7 +37,7 @@ export const Login: FunctionComponent<loginProps> = ({
   onClose,
 }): JSX.Element => {
   const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector((state) => state.auth);
+  const { loading, error } = useAppSelector((state) => state.user);
   const initialValues: LoginInput = {
     email: '',
     password: '',

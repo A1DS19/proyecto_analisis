@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { FormikProps } from 'formik';
 import React from 'react';
-import { Order } from '../../../../app/orders/types';
+import { Order } from '../../../../app/user/types';
 import { PaymentMethod } from '../PaymentMethod';
 
 interface PaymentMethodProps {

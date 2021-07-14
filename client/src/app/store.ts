@@ -1,11 +1,11 @@
 import { cartReducer } from './cart/cartSlice';
 import { productReducer } from './products/productSlice';
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { authReducer } from './auth/authSlice';
+import { userReducer } from './user/userSlice';
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
+    user: userReducer,
     product: productReducer,
     cart: cartReducer,
   },

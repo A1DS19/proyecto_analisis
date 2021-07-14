@@ -12,7 +12,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { FormikProps } from 'formik';
-import { Order } from '../../../../app/orders/types';
+import { Order } from '../../../../app/user/types';
 import { AddressForm } from '../AddressForm';
 
 interface ShippingAddressProps {

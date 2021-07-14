@@ -4,7 +4,7 @@ import { api, delay } from '../api';
 import { LoginInput } from '../../components/auth/Login';
 
 export const register = createAsyncThunk(
-  'auth/register',
+  'user/register',
   async (body: RegisterInput, { rejectWithValue }) => {
     try {
       delay(2000);
@@ -17,7 +17,7 @@ export const register = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  'auth/login',
+  'user/login',
   async (body: LoginInput, { rejectWithValue }) => {
     try {
       delay(2000);

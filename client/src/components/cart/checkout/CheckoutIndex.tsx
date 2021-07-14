@@ -1,4 +1,12 @@
-import { Accordion, Container, Heading, Grid, GridItem, Center } from '@chakra-ui/react';
+import {
+  Accordion,
+  Container,
+  Heading,
+  Grid,
+  GridItem,
+  Center,
+  useDisclosure,
+} from '@chakra-ui/react';
 import React from 'react';
 import { CompleteOrderFooter } from './footer-sidebar/CompleteOrderFooter';
 import { CompleteOrderSidebar } from './footer-sidebar/CompleteOrderSidebar';
@@ -6,26 +14,31 @@ import { useHistory } from 'react-router-dom';
 import { CartItem } from '../../../app/cart/types';
 import { useAppSelector } from '../../../hooks/hooks';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
-import { Order } from '../../../app/orders/types';
+import { Order } from '../../../app/user/types';
 import { OrderPaymentMethod } from './accordionItems/OrderPaymentMethod';
 import { ReviewOrder } from './accordionItems/ReviewOrder';
 import { ShippingAddress } from './accordionItems/ShippingAddress';
 import { Persist } from 'formik-persist';
+import { useDispatch } from 'react-redux';
+import { createOrder } from '../../../app/user/orderActions';
+import { CreateOrderSuccess } from './CreateOrderSuccess';
 
 interface CheckoutIndexProps {}
 
 export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
   const envio = 5000;
-  const history = useHistory();
+  const dispatch = useDispatch();
   const [storePickup, setStorePickup] = React.useState(true);
   const { products } = useAppSelector((state) => state.cart);
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.user);
   const [isFormValid, setIsFormValid] = React.useState(true);
+  const [submitting, setSubmitting] = React.useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const total = (products as []).reduce((acc, curr: CartItem) => {
     return (acc += curr.price * curr.selectedQuantity);
   }, 0);
 
-  const initialValues: Order = {
+  const initialValues: Partial<Order> = {
     userId: user?.id!,
     total: storePickup ? total + envio : total,
     productIds: (products as any).map((prod: CartItem) => prod.id),
@@ -42,10 +55,18 @@ export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
         </Heading>
       </Center>
       <Formik
-        initialValues={initialValues}
+        initialValues={initialValues as Order}
         onSubmit={(values: Order, helpers: FormikHelpers<Order>) => {
-          console.log(values);
-          history.push('/cart/checkout/success');
+          setSubmitting(true);
+          dispatch(
+            createOrder({
+              body: values,
+              callback: () => {
+                setSubmitting(false);
+                onOpen();
+              },
+            })
+          );
         }}
       >
         {(props: FormikProps<Order>) => {
@@ -79,6 +100,7 @@ export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
                     storePickup={storePickup}
                     props={props}
                     isFormValid={isFormValid}
+                    submitting={submitting}
                   />
                 </GridItem>
 
@@ -90,6 +112,7 @@ export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
                     storePickup={storePickup}
                     props={props}
                     isFormValid={isFormValid}
+                    submitting={submitting}
                   />
                 </GridItem>
               </Grid>
@@ -98,6 +121,7 @@ export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
           );
         }}
       </Formik>
+      <CreateOrderSuccess isOpen={isOpen} onClose={onClose} />
     </Container>
   );
 };

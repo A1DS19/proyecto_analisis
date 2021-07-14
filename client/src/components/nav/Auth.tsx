@@ -7,21 +7,20 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  useColorMode,
 } from '@chakra-ui/react';
 import { VscAccount } from 'react-icons/vsc';
 import { BiLogOutCircle } from 'react-icons/bi';
 import { FunctionComponent } from 'react';
-import { User } from '../../app/auth/types';
+import { User } from '../../app/user/types';
 import { useAppDispatch } from '../../hooks/hooks';
-import { logout } from '../../app/auth/authSlice';
+import { logout } from '../../app/user/userSlice';
 
 interface AuthMenuProps {
   user: User;
 }
 
 export const Auth: FunctionComponent<AuthMenuProps> = ({ user }): JSX.Element => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  //const { colorMode, toggleColorMode } = useColorMode();
   const dispatch = useAppDispatch();
 
   return (

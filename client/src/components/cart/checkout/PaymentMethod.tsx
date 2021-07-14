@@ -1,7 +1,7 @@
 import { Center, Flex, Image, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import { FormikProps } from 'formik/dist/types';
 import React from 'react';
-import { Order } from '../../../app/orders/types';
+import { Order } from '../../../app/user/types';
 
 interface PaymentMethodProps {
   props: FormikProps<Order>;

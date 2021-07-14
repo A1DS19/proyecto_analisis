@@ -20,7 +20,7 @@ interface CartIndexProps {}
 
 export const CartIndex: React.FC<CartIndexProps> = (): JSX.Element => {
   const { products } = useAppSelector((state) => state.cart);
-  const { isAuth } = useAppSelector((state) => state.auth);
+  const { isAuth } = useAppSelector((state) => state.user);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
   const total = (products as []).reduce((acc, curr: CartItem) => {

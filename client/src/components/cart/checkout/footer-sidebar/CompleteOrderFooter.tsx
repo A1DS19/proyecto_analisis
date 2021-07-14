@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { CheckIcon } from '@chakra-ui/icons';
 import { CartItem } from '../../../../app/cart/types';
-import { Order } from '../../../../app/orders/types';
+import { Order } from '../../../../app/user/types';
 import { FormikProps } from 'formik';
 
 interface CompleteOrderFooterProps {
@@ -12,6 +12,7 @@ interface CompleteOrderFooterProps {
   storePickup: boolean;
   props: FormikProps<Order>;
   isFormValid: boolean;
+  submitting: boolean;
 }
 
 export const CompleteOrderFooter: React.FC<CompleteOrderFooterProps> = ({
@@ -21,6 +22,7 @@ export const CompleteOrderFooter: React.FC<CompleteOrderFooterProps> = ({
   storePickup,
   props,
   isFormValid,
+  submitting,
 }): JSX.Element => {
   return (
     <Box my={3} bgColor='gray.700' borderRadius='lg' padding={3}>
@@ -28,7 +30,7 @@ export const CompleteOrderFooter: React.FC<CompleteOrderFooterProps> = ({
         <Box>
           <Button
             disabled={!isFormValid}
-            //isLoading={loading}
+            isLoading={submitting}
             type='submit'
             leftIcon={<CheckIcon />}
             color='green.500'
