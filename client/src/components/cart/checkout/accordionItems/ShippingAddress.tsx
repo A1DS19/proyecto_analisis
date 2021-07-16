@@ -55,14 +55,15 @@ export const ShippingAddress: React.FC<ShippingAddressProps> = ({
       </AccordionButton>
       <AccordionPanel pb={4}>
         <RadioGroup
-          onChange={() => {
-            setStorePickup(!storePickup);
-
-            props.setFieldValue('storePickup', JSON.stringify(storePickup));
+          onChange={(e) => {
+            setStorePickup(JSON.parse(e));
+            props.setFieldValue('storePickup', e);
 
             if (JSON.parse(props.values.storePickup)) {
               props.setFieldValue('address', null);
             }
+
+            console.log(storePickup);
           }}
           value={JSON.stringify(storePickup)}
         >

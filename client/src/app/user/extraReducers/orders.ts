@@ -27,7 +27,6 @@ export const createOrderExtraReducers = (
   });
   builder.addCase(createOrderAction.fulfilled, (state, action) => {
     state.loading = false;
-    state.orders = [...state.orders, action.payload as unknown as Order];
   });
   builder.addCase(createOrderAction.rejected, (state, action) => {
     state.loading = false;

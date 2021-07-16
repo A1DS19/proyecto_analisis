@@ -10,7 +10,6 @@ import {
 import React from 'react';
 import { CompleteOrderFooter } from './footer-sidebar/CompleteOrderFooter';
 import { CompleteOrderSidebar } from './footer-sidebar/CompleteOrderSidebar';
-import { useHistory } from 'react-router-dom';
 import { CartItem } from '../../../app/cart/types';
 import { useAppSelector } from '../../../hooks/hooks';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
@@ -18,10 +17,10 @@ import { Order } from '../../../app/user/types';
 import { OrderPaymentMethod } from './accordionItems/OrderPaymentMethod';
 import { ReviewOrder } from './accordionItems/ReviewOrder';
 import { ShippingAddress } from './accordionItems/ShippingAddress';
-import { Persist } from 'formik-persist';
 import { useDispatch } from 'react-redux';
 import { createOrder } from '../../../app/user/orderActions';
 import { CreateOrderSuccess } from './CreateOrderSuccess';
+import { clearCart } from '../../../app/cart/cartSlice';
 
 interface CheckoutIndexProps {}
 
@@ -41,7 +40,7 @@ export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
   const initialValues: Partial<Order> = {
     userId: user?.id!,
     total: storePickup ? total + envio : total,
-    productIds: (products as any).map((prod: CartItem) => prod.id),
+    products: products,
     paymentMethod: 'SINPE',
     storePickup: JSON.stringify(storePickup),
     address: null,
@@ -63,6 +62,10 @@ export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
               body: values,
               callback: () => {
                 setSubmitting(false);
+                dispatch(clearCart());
+                helpers.resetForm();
+
+                localStorage.removeItem('cart');
                 onOpen();
               },
             })
@@ -76,7 +79,7 @@ export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
                 <GridItem colSpan={3}>
                   <Accordion
                     defaultIndex={[0]}
-                    allowToggle
+                    allowMultiple
                     bg='gray.700'
                     borderRadius='lg'
                   >
@@ -116,7 +119,6 @@ export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
                   />
                 </GridItem>
               </Grid>
-              <Persist name='orderForm' />
             </Form>
           );
         }}

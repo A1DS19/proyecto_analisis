@@ -8,6 +8,8 @@ import { useAppDispatch } from './hooks/hooks';
 import { CartIndex } from './components/cart/CartIndex';
 import { CheckoutIndex } from './components/cart/checkout/CheckoutIndex';
 import { initializeCart } from './app/cart/cartSlice';
+import { ProfileIndex } from './components/user/profile/ProfileIndex';
+import { OrderIndex } from './components/user/orders/OrderIndex';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -26,6 +28,8 @@ function App() {
           <Route path='/product/:id' component={SelectedProduct} />
           <Route exact path='/cart' component={CartIndex} />
           <Route exact path='/cart/checkout' component={CheckoutIndex} />
+          <Route exact path='/user/:userId' component={ProfileIndex} />
+          <Route exact path='/user/:userId/orders' component={OrderIndex} />
         </Switch>
       </Container>
     </Router>

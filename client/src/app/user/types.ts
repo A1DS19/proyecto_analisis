@@ -1,3 +1,5 @@
+import { CartItem } from '../cart/types';
+
 export type SINPE = 'SINPE';
 export type TIENDA_FISICA = 'TIENDA_FISICA';
 
@@ -27,11 +29,13 @@ export interface Address {
 export interface Order {
   id: string;
   userId: string;
-  productIds: string[];
+  products: CartItem[];
   total: number;
   paymentMethod: SINPE | TIENDA_FISICA;
   storePickup: string;
   address?: Address | null;
+  isDelivered: string;
+  deliveryDate: Date | string;
   createdAt: Date;
 }
 

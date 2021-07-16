@@ -14,13 +14,13 @@ import { FunctionComponent } from 'react';
 import { User } from '../../app/user/types';
 import { useAppDispatch } from '../../hooks/hooks';
 import { logout } from '../../app/user/userSlice';
+import { Link } from 'react-router-dom';
 
 interface AuthMenuProps {
   user: User;
 }
 
 export const Auth: FunctionComponent<AuthMenuProps> = ({ user }): JSX.Element => {
-  //const { colorMode, toggleColorMode } = useColorMode();
   const dispatch = useAppDispatch();
 
   return (
@@ -30,11 +30,15 @@ export const Auth: FunctionComponent<AuthMenuProps> = ({ user }): JSX.Element =>
           <Avatar size={'sm'} src={(<VscAccount />) as any} />
         </MenuButton>
         <MenuList>
-          <MenuItem>Link 1</MenuItem>
-          <MenuItem>Link 2</MenuItem>
-          {/* <MenuItem onClick={toggleColorMode}>
-            {colorMode === 'dark' ? 'MODO CLARO' : 'MODO OSCURO'}
-          </MenuItem> */}
+          <Link to={`/user/${user.id}`}>
+            <MenuItem>Perfil</MenuItem>
+          </Link>
+
+          <Link to={`/user/${user.id}/orders`}>
+            <MenuItem>Ordenes</MenuItem>
+          </Link>
+
+          {user.admin && <MenuItem>Admin</MenuItem>}
           <MenuDivider />
           <MenuItem fontSize='md' p={2} onClick={() => dispatch(logout())}>
             <BiLogOutCircle style={{ marginRight: '5px' }} /> SALIR

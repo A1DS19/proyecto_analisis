@@ -33,6 +33,7 @@ export const createOrder = createAsyncThunk(
     try {
       const { data } = await api.post('/order', body);
       callback && callback();
+
       return data;
     } catch (err) {
       rejectWithValue(err.message);
