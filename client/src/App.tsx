@@ -10,6 +10,7 @@ import { CheckoutIndex } from './components/cart/checkout/CheckoutIndex';
 import { initializeCart } from './app/cart/cartSlice';
 import { ProfileIndex } from './components/user/profile/ProfileIndex';
 import { OrderIndex } from './components/user/orders/OrderIndex';
+import { AdminIndex } from './components/admin/AdminIndex';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -30,6 +31,7 @@ function App() {
           <Route exact path='/cart/checkout' component={CheckoutIndex} />
           <Route exact path='/user/:userId' component={ProfileIndex} />
           <Route exact path='/user/:userId/orders' component={OrderIndex} />
+          <Route exact path='/admin' component={AdminIndex} />
         </Switch>
       </Container>
     </Router>

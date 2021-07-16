@@ -1,5 +1,5 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit';
-import { login, register } from '../userActions';
+import { login, register, updateProfile } from '../userActions';
 import { UserState } from '../userSlice';
 
 export const registerExtraReducers = (
@@ -29,6 +29,22 @@ export const loginExtraReducers = (builder: ActionReducerMapBuilder<UserState>):
     state.isAuth = true;
   });
   builder.addCase(login.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.payload as string;
+  });
+};
+
+export const updateUserDataExtraReducer = (
+  builder: ActionReducerMapBuilder<UserState>
+): void => {
+  builder.addCase(updateProfile.pending, (state, action) => {
+    state.loading = true;
+  });
+  builder.addCase(updateProfile.fulfilled, (state, action) => {
+    state.loading = false;
+    state.user = action.payload;
+  });
+  builder.addCase(updateProfile.rejected, (state, action) => {
     state.loading = false;
     state.error = action.payload as string;
   });

@@ -38,7 +38,11 @@ export const Auth: FunctionComponent<AuthMenuProps> = ({ user }): JSX.Element =>
             <MenuItem>Ordenes</MenuItem>
           </Link>
 
-          {user.admin && <MenuItem>Admin</MenuItem>}
+          {user.admin && (
+            <Link to='/admin'>
+              <MenuItem>Admin</MenuItem>
+            </Link>
+          )}
           <MenuDivider />
           <MenuItem fontSize='md' p={2} onClick={() => dispatch(logout())}>
             <BiLogOutCircle style={{ marginRight: '5px' }} /> SALIR

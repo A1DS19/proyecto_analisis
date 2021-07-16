@@ -50,3 +50,18 @@ export const resetPasswordSchema = Yup.object({
     .oneOf([Yup.ref('password'), null], 'Las contrasenas deben ser iguales')
     .required('Repetir la contraseña es requerido'),
 });
+
+export const updateUserValidationSchema = Yup.object({
+  name: Yup.string().required('Debe ingresar su primer nombre'),
+  lastName: Yup.string().required('Debe ingresar su primer apellido'),
+  phoneNumber: Yup.string()
+    .required('Debe ingresar su numero telefonico')
+    .matches(/^[0-9]+$/, 'Numero telefonico invalido')
+    .min(8, 'Numero telefonico invalido')
+    .max(8, 'Numero telefonico invalido'),
+  idNumber: Yup.string()
+    .required('Debe ingresar su numero de cedula')
+    .matches(/^[0-9]+$/, 'Numero de cedula invalido')
+    .min(9, 'Numero de cedula invalido')
+    .max(9, 'Numero de cedula invalido'),
+});

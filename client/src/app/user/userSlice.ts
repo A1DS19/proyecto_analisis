@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Order, User } from './types';
-import { registerExtraReducers, loginExtraReducers } from './extraReducers/auth';
+import {
+  registerExtraReducers,
+  loginExtraReducers,
+  updateUserDataExtraReducer,
+} from './extraReducers/auth';
 import {
   createOrderExtraReducers,
   fetchOrdersExtraReducers,
@@ -36,6 +40,7 @@ export const userSlice = createSlice({
     loginExtraReducers(builder);
     fetchOrdersExtraReducers(builder);
     createOrderExtraReducers(builder);
+    updateUserDataExtraReducer(builder);
   },
 });
 

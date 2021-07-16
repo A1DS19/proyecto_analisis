@@ -4,6 +4,7 @@ import { fetchCategories } from '../../util/useGetCategories';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { Category } from '../../app/products/types';
 import { capitalizeWord } from '../../util/functions';
+import { FullSpinner } from '../common/FullSpinner';
 
 interface ProductFilterProps {
   setFilter: (filter: string) => void;
@@ -23,6 +24,10 @@ export const ProductFilter: React.FC<ProductFilterProps> = ({
       setCategories(await fetchCategories());
     })();
   }, []);
+
+  if (!categories) {
+    return <FullSpinner />;
+  }
 
   const renderCategories = () => {
     return categories.map((category: Category) => {
