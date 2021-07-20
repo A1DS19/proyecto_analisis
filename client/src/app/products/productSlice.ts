@@ -1,6 +1,6 @@
 import { Product } from './types';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchProduct, fetchProducts } from './productActions';
+import { fetchProduct, fetchProductByName, fetchProducts } from './productActions';
 
 interface ProductState {
   products: Product[];
@@ -43,6 +43,17 @@ export const productSlice = createSlice({
       state.selectedProduct = action.payload;
     });
     builder.addCase(fetchProduct.rejected, (state, action) => {
+      state.loading = false;
+    });
+    //fetch product by name
+    builder.addCase(fetchProductByName.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchProductByName.fulfilled, (state, action) => {
+      state.loading = false;
+      state.products = action.payload;
+    });
+    builder.addCase(fetchProductByName.rejected, (state, action) => {
       state.loading = false;
     });
   },

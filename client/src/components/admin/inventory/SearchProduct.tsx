@@ -1,10 +1,9 @@
 import React from 'react';
 import { Box, Input, Spinner } from '@chakra-ui/react';
-import { useAppDispatch } from '../../hooks/hooks';
-import { fetchProducts } from '../../app/products/productActions';
+import { useAppDispatch } from '../../../hooks/hooks';
+import { fetchProduct, fetchProducts } from '../../../app/admin/adminActions';
 import debounce from 'lodash.debounce';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
-import { fetchProductByName } from '../../app/products/productActions';
 
 interface SearchProductProps {}
 
@@ -23,7 +22,7 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
   const debouncedCallback = React.useCallback(
     debounce((name: string) => {
       dispatch(
-        fetchProductByName({
+        fetchProduct({
           name,
           callback: () => {
             setLoading(false);

@@ -28,3 +28,20 @@ export const fetchProduct = createAsyncThunk(
     }
   }
 );
+
+export const fetchProductByName = createAsyncThunk(
+  'admin/fetchProduct',
+  async (
+    { name, callback }: { name: string; callback?: () => void },
+    { rejectWithValue }
+  ) => {
+    try {
+      delay(200);
+      const { data } = await api.get(`/products?name=${name}`);
+      callback && callback();
+      return data;
+    } catch (err: any) {
+      rejectWithValue(err.message);
+    }
+  }
+);

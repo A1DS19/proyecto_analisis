@@ -1,3 +1,4 @@
+import 'react-dropzone-uploader/dist/styles.css';
 import React from 'react';
 import { Container } from '@chakra-ui/react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -11,6 +12,8 @@ import { initializeCart } from './app/cart/cartSlice';
 import { ProfileIndex } from './components/user/profile/ProfileIndex';
 import { OrderIndex } from './components/user/orders/OrderIndex';
 import { AdminIndex } from './components/admin/AdminIndex';
+import { AddUpdateProduct } from './components/admin/inventory/AddUpdateProduct';
+import { Footer } from './components/Footer';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -32,8 +35,14 @@ function App() {
           <Route exact path='/user/:userId' component={ProfileIndex} />
           <Route exact path='/user/:userId/orders' component={OrderIndex} />
           <Route exact path='/admin' component={AdminIndex} />
+          <Route
+            exact
+            path={['/admin/inventory/:id', '/admin/inventory']}
+            component={AddUpdateProduct}
+          />
         </Switch>
       </Container>
+      <Footer />
     </Router>
   );
 }
