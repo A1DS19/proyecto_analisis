@@ -65,3 +65,22 @@ export const updateUserValidationSchema = Yup.object({
     .min(9, 'Numero de cedula invalido')
     .max(9, 'Numero de cedula invalido'),
 });
+
+export const addUpdateValidationSchema = Yup.object({
+  email: Yup.string()
+    .required('El email es requerido')
+    .email('El email no tiene el formato correcto')
+    .lowercase(),
+  name: Yup.string().required('Debe ingresar su primer nombre'),
+  lastName: Yup.string().required('Debe ingresar su primer apellido'),
+  phoneNumber: Yup.string()
+    .required('Debe ingresar su numero telefonico')
+    .matches(/^[0-9]+$/, 'Numero telefonico invalido')
+    .min(8, 'Numero telefonico invalido')
+    .max(8, 'Numero telefonico invalido'),
+  idNumber: Yup.string()
+    .required('Debe ingresar su numero de cedula')
+    .matches(/^[0-9]+$/, 'Numero de cedula invalido')
+    .min(9, 'Numero de cedula invalido')
+    .max(9, 'Numero de cedula invalido'),
+});

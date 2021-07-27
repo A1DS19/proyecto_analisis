@@ -1,9 +1,9 @@
 import React from 'react';
 import { FormikProps } from 'formik';
-import { Box, Grid, Heading } from '@chakra-ui/react';
+import { Box, Grid, Heading, Image } from '@chakra-ui/react';
 import { IsUpdateOrCreate } from './AddUpdateProduct';
 //@ts-ignore
-import { Image } from 'cloudinary-react';
+//import { Image } from 'cloudinary-react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { AlertModal } from '../../common/AlertModal';
 
@@ -36,10 +36,10 @@ export const ListImages: React.FC<ListImagesProps> = ({ props }): JSX.Element =>
             <Box key={img} py={2} px={1} position='relative'>
               <Box
                 position='absolute'
-                top='0'
-                right='2'
-                backgroundColor='black'
-                borderRadius='lg'
+                top='-1'
+                right='3'
+                // backgroundColor='black'
+                // borderRadius='lg'
               >
                 <DeleteIcon
                   color='red'
@@ -51,12 +51,21 @@ export const ListImages: React.FC<ListImagesProps> = ({ props }): JSX.Element =>
                   }}
                 />
               </Box>
-              <Image
+
+              {/* <Image
                 cloudName={process.env.REACT_APP_CLOUD_NAME}
                 publicId={img}
                 upload_preset={process.env.REACT_APP_UNSIGNED_UPLOAD_PRESET}
                 width='150'
-                crop='scale'
+                heigth='150'
+              /> */}
+
+              <Image
+                rounded={'lg'}
+                height={140}
+                width={140}
+                objectFit={'cover'}
+                src={img}
               />
             </Box>
           );

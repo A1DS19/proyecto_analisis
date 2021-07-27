@@ -12,3 +12,7 @@ export const createProductValidation = Yup.object({
     .required('Debe agregar imagenes')
     .min(1, 'Debe agregar al menos una imagen'),
 });
+
+export const categoryValidation = Yup.object({
+  name: Yup.string().required('El nombre de la categoria es requerido').lowercase(),
+});

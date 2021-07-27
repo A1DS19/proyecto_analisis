@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import { Product } from '../../../app/products/types';
-import { DeleteIcon, EditIcon, SearchIcon } from '@chakra-ui/icons';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch } from '../../../hooks/hooks';
 import { removeProduct } from '../../../app/admin/adminActions';
@@ -34,13 +34,13 @@ export const InventoryTable: React.FC<InventoryTableProps> = ({
           <Td isNumeric>{item.quantity}</Td>
           <Td isNumeric>₡{item.price}</Td>
           <Td>
-            <Box display='flex' justifyContent='space-between' fontSize='lg'>
+            <Box display='flex' justifyContent='center' fontSize='lg'>
               <EditIcon
+                mr={3}
                 cursor='pointer'
                 color='orange.300'
                 onClick={() => history.push(`/admin/inventory/${item.id}`)}
               />
-              <SearchIcon color='gray.300' cursor='pointer' />
               <DeleteIcon
                 color='red'
                 cursor='pointer'

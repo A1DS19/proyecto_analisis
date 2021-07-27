@@ -38,9 +38,3 @@ export interface Order {
   deliveryDate: Date | string;
   createdAt: Date;
 }
-
-export interface Category {
-  id: string;
-  name: string;
-  image: string;
-}

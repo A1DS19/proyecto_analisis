@@ -1,6 +1,10 @@
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react';
 import React from 'react';
 import { InventoryIndex } from './inventory/InventoryIndex';
+import { CategoryIndex } from './categories/CategoryIndex';
+import { UsersIndex } from './users/UsersIndex';
+import { OrdersIndex } from './orders/OrdersIndex';
+import { StatisticsIndex } from './statistics/StatisticsIndex';
 
 interface AdminIndexProps {}
 
@@ -16,7 +20,7 @@ export const AdminIndex: React.FC<AdminIndexProps> = (): JSX.Element => {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <p>estadisticas</p>
+          <StatisticsIndex />
         </TabPanel>
 
         <TabPanel>
@@ -24,15 +28,15 @@ export const AdminIndex: React.FC<AdminIndexProps> = (): JSX.Element => {
         </TabPanel>
 
         <TabPanel>
-          <p>categorias</p>
+          <CategoryIndex />
         </TabPanel>
 
         <TabPanel>
-          <p>ordenes</p>
+          <OrdersIndex />
         </TabPanel>
 
         <TabPanel>
-          <p>usuarios</p>
+          <UsersIndex />
         </TabPanel>
       </TabPanels>
     </Tabs>

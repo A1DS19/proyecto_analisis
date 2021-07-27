@@ -18,8 +18,6 @@ export const AddImage: React.FC<AddImageProps> = ({
 }): JSX.Element => {
   const urls: Array<string> = [...props.values.images!];
 
-  console.log(imgLoading);
-
   const handleChangeStatus: IDropzoneProps['onChangeStatus'] = ({ file }, status) => {};
 
   const handleSubmit: IDropzoneProps['onSubmit'] = (files, allFiles) => {
@@ -43,8 +41,12 @@ export const AddImage: React.FC<AddImageProps> = ({
         },
       });
 
-      //agregar ids a array
-      urls.push(data.public_id);
+      //agregar ids a array cuando ya este el server
+      //urls.push(data.public_id);
+
+      //temp
+      urls.push(data.url);
+
       props.setFieldValue('images', urls);
     });
 

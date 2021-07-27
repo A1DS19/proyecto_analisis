@@ -128,7 +128,7 @@ export const AddUpdateProduct: React.FC<IAddUpdateProduct> = (): JSX.Element => 
         }}
       >
         {(props: FormikProps<IsUpdateOrCreate>) => {
-          console.log(props.values);
+          //console.log(props.values);
 
           return (
             <Grid templateColumns='repeat(2, 1fr)' gap={3}>

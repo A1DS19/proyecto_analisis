@@ -1,11 +1,14 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit';
 import {
+  createCategory,
   createProduct,
+  deleteCategory,
   fetchCategories,
   fetchProduct,
   fetchProductById,
   fetchProducts,
   removeProduct,
+  updateCategory,
   updateProduct,
 } from '../adminActions';
 import { AdminState } from '../adminSlice';
@@ -115,6 +118,54 @@ export const removeProductExtraReducers = (
     ];
   });
   builder.addCase(removeProduct.rejected, (state, action) => {
+    state.loading = false;
+  });
+};
+
+export const createCategoryExtraReducers = (
+  builder: ActionReducerMapBuilder<AdminState>
+) => {
+  builder.addCase(createCategory.pending, (state, action) => {
+    state.loading = true;
+  });
+  builder.addCase(createCategory.fulfilled, (state, action) => {
+    state.loading = false;
+    state.categories = [...state.categories, action.payload];
+  });
+  builder.addCase(createCategory.rejected, (state, action) => {
+    state.loading = false;
+  });
+};
+
+export const updateCategoryExtraReducers = (
+  builder: ActionReducerMapBuilder<AdminState>
+) => {
+  builder.addCase(updateCategory.pending, (state, action) => {
+    state.loading = true;
+  });
+  builder.addCase(updateCategory.fulfilled, (state, action) => {
+    state.loading = false;
+    state.categories = [
+      ...state.categories.filter((item) => item.id !== action.payload.id),
+      action.payload,
+    ];
+  });
+  builder.addCase(updateCategory.rejected, (state, action) => {
+    state.loading = false;
+  });
+};
+
+export const deleteCategoryExtraReducers = (
+  builder: ActionReducerMapBuilder<AdminState>
+) => {
+  builder.addCase(deleteCategory.pending, (state, action) => {
+    state.loading = true;
+  });
+  builder.addCase(deleteCategory.fulfilled, (state, action) => {
+    state.loading = false;
+    state.categories = [...state.categories.filter((item) => item.id !== action.payload)];
+  });
+  builder.addCase(deleteCategory.rejected, (state, action) => {
     state.loading = false;
   });
 };

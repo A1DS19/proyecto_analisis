@@ -13,6 +13,7 @@ import { ProfileIndex } from './components/user/profile/ProfileIndex';
 import { OrderIndex } from './components/user/orders/OrderIndex';
 import { AdminIndex } from './components/admin/AdminIndex';
 import { AddUpdateProduct } from './components/admin/inventory/AddUpdateProduct';
+import { AddUpdateUser } from './components/admin/users/AddUpdateUser';
 import { Footer } from './components/Footer';
 
 function App() {
@@ -39,6 +40,11 @@ function App() {
             exact
             path={['/admin/inventory/:id', '/admin/inventory']}
             component={AddUpdateProduct}
+          />
+          <Route
+            exact
+            path={['/admin/user/:id', '/admin/user']}
+            component={AddUpdateUser}
           />
         </Switch>
       </Container>

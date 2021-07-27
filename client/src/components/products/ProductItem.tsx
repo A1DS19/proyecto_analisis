@@ -1,4 +1,4 @@
-import { Box, useColorModeValue, Stack, Heading, Image, Text } from '@chakra-ui/react';
+import { Box, useColorModeValue, Stack, Image, Heading, Text } from '@chakra-ui/react';
 import React from 'react';
 import { Product } from '../../app/products/types';
 import { Link, useHistory } from 'react-router-dom';
@@ -38,7 +38,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ product }): JSX.Elemen
           pos: 'absolute',
           top: 5,
           left: 0,
-          backgroundImage: `url(${product.images[0]})`,
+          backgroundColor: 'white',
           filter: 'blur(15px)',
           zIndex: -1,
         }}
@@ -50,7 +50,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ product }): JSX.Elemen
       >
         <Image
           rounded={'lg'}
-          height={230}
+          height={250}
           width={282}
           objectFit={'cover'}
           src={product.images[0]}

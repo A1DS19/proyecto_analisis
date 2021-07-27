@@ -10,7 +10,6 @@ export interface Product {
 }
 
 export interface Category {
-  name: string;
-  image: string;
   id: string;
+  name: string;
 }

@@ -43,6 +43,7 @@ export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
     products: products,
     paymentMethod: 'SINPE',
     storePickup: JSON.stringify(storePickup),
+    isDelivered: 'false',
     address: null,
   };
 
