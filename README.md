@@ -14,9 +14,10 @@ Con este sistema los usuarios se van a crear una cuenta personal con la cual van
 ## Como se instala
 
 1. Instalar [Node.js](https://nodejs.org/en/download/).
-2. Clonar repositorio.
-3. Entrar en carpeta client y correr `yarn start`.
-4. Entrar en carpeta server y correr `yarn dev`.
+2. Instalar [Yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
+3. Clonar repositorio.
+4. Entrar en carpeta client y correr `yarn start`.
+5. Entrar en carpeta server y correr `yarn dev`.
 
 ## To-do:
 
