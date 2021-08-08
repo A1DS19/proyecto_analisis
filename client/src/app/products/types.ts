@@ -4,6 +4,8 @@ export interface Product {
   description: string;
   images: string[];
   quantity: number;
+  isDiscounted: boolean;
+  discountedPrice: number;
   price: number;
   category: string;
   createdAt: Date;

@@ -12,6 +12,8 @@ import {
   removeProductExtraReducers,
   updateCategoryExtraReducers,
   updateProductExtraReducer,
+  deleteProductDiscountExtraReducers,
+  updateProductDiscountExtraReducers,
 } from './extraReducers/InventoryExtraReducers';
 import {
   createUserExtraReducer,
@@ -75,6 +77,8 @@ export const adminSlice = createSlice({
     fetchOrdersExtraReducer(builder);
     fetchOrdersByIdExtraReducer(builder);
     updateOrderStateExtraReducer(builder);
+    deleteProductDiscountExtraReducers(builder);
+    updateProductDiscountExtraReducers(builder);
   },
 });
 

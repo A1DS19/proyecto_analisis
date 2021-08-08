@@ -5,6 +5,7 @@ import { CategoryIndex } from './categories/CategoryIndex';
 import { UsersIndex } from './users/UsersIndex';
 import { OrdersIndex } from './orders/OrdersIndex';
 import { StatisticsIndex } from './statistics/StatisticsIndex';
+import { PromotionsIndex } from './promotions/PromotionsIndex';
 
 interface AdminIndexProps {}
 
@@ -14,6 +15,7 @@ export const AdminIndex: React.FC<AdminIndexProps> = (): JSX.Element => {
       <TabList my={2}>
         <Tab>Estadisticas</Tab>
         <Tab>Inventario</Tab>
+        <Tab>Promociones</Tab>
         <Tab>Categorías</Tab>
         <Tab>Ordenes</Tab>
         <Tab>Usuarios</Tab>
@@ -25,6 +27,10 @@ export const AdminIndex: React.FC<AdminIndexProps> = (): JSX.Element => {
 
         <TabPanel>
           <InventoryIndex />
+        </TabPanel>
+
+        <TabPanel>
+          <PromotionsIndex />
         </TabPanel>
 
         <TabPanel>

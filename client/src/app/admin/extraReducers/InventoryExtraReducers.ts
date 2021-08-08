@@ -11,6 +11,7 @@ import {
   updateCategory,
   updateProduct,
 } from '../adminActions';
+import { deleteProductDiscount, updateProductDiscount } from '../actions/promotions';
 import { AdminState } from '../adminSlice';
 
 export const fetchProductsExtraReducer = (
@@ -166,6 +167,43 @@ export const deleteCategoryExtraReducers = (
     state.categories = [...state.categories.filter((item) => item.id !== action.payload)];
   });
   builder.addCase(deleteCategory.rejected, (state, action) => {
+    state.loading = false;
+  });
+};
+
+export const updateProductDiscountExtraReducers = (
+  builder: ActionReducerMapBuilder<AdminState>
+) => {
+  builder.addCase(updateProductDiscount.pending, (state, action) => {
+    state.loading = true;
+  });
+  builder.addCase(updateProductDiscount.fulfilled, (state, action) => {
+    state.loading = false;
+
+    state.inventory = [
+      ...state.inventory.filter((item) => item.id !== action.payload.id),
+      action.payload,
+    ];
+  });
+  builder.addCase(updateProductDiscount.rejected, (state, action) => {
+    state.loading = false;
+  });
+};
+
+export const deleteProductDiscountExtraReducers = (
+  builder: ActionReducerMapBuilder<AdminState>
+) => {
+  builder.addCase(deleteProductDiscount.pending, (state, action) => {
+    state.loading = true;
+  });
+  builder.addCase(deleteProductDiscount.fulfilled, (state, action) => {
+    state.loading = false;
+    state.inventory = [
+      ...state.inventory.filter((item) => item.id !== action.payload.id),
+      action.payload,
+    ];
+  });
+  builder.addCase(deleteProductDiscount.rejected, (state, action) => {
     state.loading = false;
   });
 };

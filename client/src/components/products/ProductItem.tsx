@@ -2,6 +2,7 @@ import { Box, useColorModeValue, Stack, Image, Heading, Text } from '@chakra-ui/
 import React from 'react';
 import { Product } from '../../app/products/types';
 import { Link, useHistory } from 'react-router-dom';
+import { DiscountedPrice } from '../common/DiscountedPrice';
 
 interface ProductItemProps {
   product: Product;
@@ -71,7 +72,15 @@ export const ProductItem: React.FC<ProductItemProps> = ({ product }): JSX.Elemen
         </Heading>
         <Stack direction={'row'} align={'center'}>
           <Text fontWeight={800} fontSize={'xl'}>
-            ₡{product.price}
+            {!product.isDiscounted ? (
+              <React.Fragment>₡{product.price}</React.Fragment>
+            ) : (
+              <DiscountedPrice
+                product={product}
+                original_price_size='lg'
+                discounted_price_size='xl'
+              />
+            )}
           </Text>
         </Stack>
       </Stack>

@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { ProductList } from './products/ProductList';
 import { ProductFilter } from './products/ProductFilter';
 import { Box } from '@chakra-ui/react';
+import { ProductPromotions } from './products/discountedProducts/ProductPromotions';
 
 interface IndexProps {}
 
@@ -20,6 +21,9 @@ export const Index: React.FC<IndexProps> = (): JSX.Element => {
     <React.Fragment>
       <Box mt={3} mb={10}>
         <ProductFilter setFilter={setFilter} filter={filter} />
+      </Box>
+      <Box mt={3} mb={10}>
+        <ProductPromotions filter={filter} />
       </Box>
       <Box mb={10}>
         <ProductList products={products} loading={loading} />

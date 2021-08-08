@@ -23,6 +23,7 @@ import { FaCartPlus, FaArrowLeft } from 'react-icons/fa';
 import { clearSelectedProduct } from '../../../app/products/productSlice';
 import { addCartActionInput, addCartItem } from '../../../app/cart/cartSlice';
 import { CartItem } from '../../../app/cart/types';
+import { DiscountedPrice } from '../../common/DiscountedPrice';
 interface SelectedProductProps {}
 
 export const SelectedProduct: React.FC<SelectedProductProps> = (): JSX.Element => {
@@ -83,8 +84,18 @@ export const SelectedProduct: React.FC<SelectedProductProps> = (): JSX.Element =
         <Box mx={4}>
           <Heading size='lg'>{selectedProduct?.name}</Heading>
           <Stack direction='row' my={3}>
-            <Text fontWeight='bold'>Precio</Text>
-            <Text>₡{selectedProduct?.price}</Text>
+            <Text mr={1} fontWeight='bold'>
+              Precio
+            </Text>
+            {!selectedProduct.isDiscounted ? (
+              <React.Fragment>₡{selectedProduct.price}</React.Fragment>
+            ) : (
+              <DiscountedPrice
+                product={selectedProduct}
+                original_price_size='lg'
+                discounted_price_size='lg'
+              />
+            )}
           </Stack>
           {selectedProduct?.quantity! > 0 ? (
             <Text fontWeight='semibold' color='green.500'>

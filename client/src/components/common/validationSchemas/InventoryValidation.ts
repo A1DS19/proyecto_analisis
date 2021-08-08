@@ -16,3 +16,7 @@ export const createProductValidation = Yup.object({
 export const categoryValidation = Yup.object({
   name: Yup.string().required('El nombre de la categoria es requerido').lowercase(),
 });
+
+export const PromotionValidationSchema = Yup.object({
+  discountedPrice: Yup.number().required('El precio de descuento es requerido'),
+});
