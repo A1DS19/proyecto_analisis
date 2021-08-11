@@ -89,7 +89,7 @@ export const Login: FunctionComponent<loginProps> = ({
                     </FormControl>
 
                     <Box mt={1}>
-                      <Link href='/auth/forgot-password' color='blue.400'>
+                      <Link href='/auth/forgot_password' color='blue.400'>
                         Olvide mi contraseña
                       </Link>
                     </Box>
