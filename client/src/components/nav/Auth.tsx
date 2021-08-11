@@ -14,7 +14,7 @@ import { FunctionComponent } from 'react';
 import { User } from '../../app/user/types';
 import { useAppDispatch } from '../../hooks/hooks';
 import { logout } from '../../app/user/userSlice';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 interface AuthMenuProps {
   user: User;
@@ -22,6 +22,7 @@ interface AuthMenuProps {
 
 export const Auth: FunctionComponent<AuthMenuProps> = ({ user }): JSX.Element => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
 
   return (
     <Flex alignItems={'center'} zIndex='modal'>
@@ -44,7 +45,14 @@ export const Auth: FunctionComponent<AuthMenuProps> = ({ user }): JSX.Element =>
             </Link>
           )}
           <MenuDivider />
-          <MenuItem fontSize='md' p={2} onClick={() => dispatch(logout())}>
+          <MenuItem
+            fontSize='md'
+            p={2}
+            onClick={() => {
+              dispatch(logout());
+              history.push('/');
+            }}
+          >
             <BiLogOutCircle style={{ marginRight: '5px' }} /> SALIR
           </MenuItem>
         </MenuList>
