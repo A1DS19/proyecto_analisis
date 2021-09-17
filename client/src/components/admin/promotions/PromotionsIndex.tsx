@@ -12,7 +12,7 @@ export const PromotionsIndex: React.FC<PromotionsIndexProps> = (): JSX.Element =
   const { inventory, loading } = useAppSelector((state) => state.admin);
 
   React.useEffect(() => {
-    dispatch(fetchProducts(''));
+    dispatch(fetchProducts({ category: '', page: 0, limit: 1000 }));
   }, [dispatch]);
 
   if (loading) return <FullSpinner />;

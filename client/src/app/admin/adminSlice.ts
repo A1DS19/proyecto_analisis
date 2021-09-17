@@ -39,6 +39,9 @@ export interface AdminState {
   categories: Category[];
   loading: boolean;
   error: string | null;
+  currentPage: number;
+  limit: number;
+  totalPages: number;
 }
 
 const initialState: AdminState = {
@@ -51,6 +54,9 @@ const initialState: AdminState = {
   categories: [],
   loading: false,
   error: null,
+  currentPage: 0,
+  totalPages: 0,
+  limit: 10000000000000,
 };
 
 export const adminSlice = createSlice({

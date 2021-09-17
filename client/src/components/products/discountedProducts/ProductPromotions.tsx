@@ -14,14 +14,18 @@ export const ProductPromotions: React.FC<ProductPromotionsProps> = ({
   const discountedProducts = products.filter((product) => product.isDiscounted === true);
 
   return (
-    <Container maxW='container.lg' bg='gray.700' padding={3} borderRadius='lg'>
-      <Center mb={3}>
-        <Heading size='lg'>
-          Promociones {filter !== '' && `en ${filter.replaceAll('_', ' ')}`}
-        </Heading>
-      </Center>
+    <React.Fragment>
+      {discountedProducts.length !== 0 && (
+        <Container maxW='container.lg' bg='gray.700' padding={3} borderRadius='lg'>
+          <Center mb={3}>
+            <Heading size='lg'>
+              Promociones {filter !== '' && `en ${filter.replaceAll('_', ' ')}`}
+            </Heading>
+          </Center>
 
-      <ProductDiscountList products={discountedProducts} />
-    </Container>
+          <ProductDiscountList products={discountedProducts} />
+        </Container>
+      )}
+    </React.Fragment>
   );
 };

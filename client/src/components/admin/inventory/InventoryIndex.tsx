@@ -16,7 +16,7 @@ export const InventoryIndex: React.FC<InventoryIndexProps> = (): JSX.Element => 
   const { inventory, loading } = useAppSelector((state) => state.admin);
 
   React.useEffect(() => {
-    dispatch(fetchProducts(''));
+    dispatch(fetchProducts({ category: '', page: 0, limit: 10000 }));
   }, [dispatch]);
 
   if (loading) return <FullSpinner />;

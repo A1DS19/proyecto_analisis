@@ -3,6 +3,8 @@ import React from 'react';
 import { Product } from '../../app/products/types';
 import { Link, useHistory } from 'react-router-dom';
 import { DiscountedPrice } from '../common/DiscountedPrice';
+import { useAppDispatch } from '../../hooks/hooks';
+import { clearPagination } from '../../app/products/productSlice';
 
 interface ProductItemProps {
   product: Product;
@@ -10,6 +12,7 @@ interface ProductItemProps {
 
 export const ProductItem: React.FC<ProductItemProps> = ({ product }): JSX.Element => {
   const history = useHistory();
+  const dispatch = useAppDispatch();
 
   return (
     <Box
@@ -25,7 +28,10 @@ export const ProductItem: React.FC<ProductItemProps> = ({ product }): JSX.Elemen
       zIndex={1}
     >
       <Box
-        onClick={() => history.push(`/product/${product.id}`)}
+        onClick={() => {
+          history.push(`/product/${product.id}`);
+          dispatch(clearPagination());
+        }}
         cursor='pointer'
         rounded={'lg'}
         mt={-12}

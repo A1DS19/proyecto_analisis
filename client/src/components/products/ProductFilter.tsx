@@ -5,6 +5,8 @@ import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { Category } from '../../app/products/types';
 import { capitalizeWord } from '../../util/functions';
 import { FullSpinner } from '../common/FullSpinner';
+import { useAppDispatch } from '../../hooks/hooks';
+import { clearPagination } from '../../app/products/productSlice';
 
 interface ProductFilterProps {
   setFilter: (filter: string) => void;
@@ -18,6 +20,7 @@ export const ProductFilter: React.FC<ProductFilterProps> = ({
   const [categories, setCategories] = React.useState([]);
   const [show, setShow] = React.useState(false);
   const handleToggle = () => setShow(!show);
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     (async () => {
@@ -38,7 +41,10 @@ export const ProductFilter: React.FC<ProductFilterProps> = ({
           size='sm'
           padding={2}
           margin={2}
-          onClick={() => setFilter(category.name)}
+          onClick={() => {
+            setFilter(category.name);
+            dispatch(clearPagination());
+          }}
           bg={filter === category.name ? 'gray.400' : 'gray.600'}
         >
           {name}
@@ -58,7 +64,10 @@ export const ProductFilter: React.FC<ProductFilterProps> = ({
             size='sm'
             padding={2}
             margin={2}
-            onClick={() => setFilter('')}
+            onClick={() => {
+              setFilter('');
+              dispatch(clearPagination());
+            }}
             bg={filter === '' ? 'gray.400' : 'gray.600'}
           >
             Todos

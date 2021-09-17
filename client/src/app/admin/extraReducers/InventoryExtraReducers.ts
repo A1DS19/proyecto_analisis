@@ -22,7 +22,9 @@ export const fetchProductsExtraReducer = (
   });
   builder.addCase(fetchProducts.fulfilled, (state, action) => {
     state.loading = false;
-    state.inventory = action.payload;
+    state.inventory = action.payload.products;
+    state.currentPage = action.payload.currentPage;
+    state.totalPages = action.payload.totalPages;
   });
   builder.addCase(fetchProducts.rejected, (state, action) => {
     state.loading = false;

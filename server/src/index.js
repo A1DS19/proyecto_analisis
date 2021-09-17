@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const { mongo_db_connection } = require('./config/dbConnection');
-const { route: productsRoute } = require('./routes/products');
+const { route: productsRoutes } = require('./routes/products');
+const { route: categoriesRoutes } = require('./routes/categories');
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -12,8 +13,10 @@ const app = express();
   app.use(cors());
   app.use(morgan('dev'));
   app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
 
-  app.use('/products', productsRoute);
+  app.use('/products', productsRoutes);
+  app.use('/category', categoriesRoutes);
 
   mongo_db_connection();
   app.listen(PORT, () => {

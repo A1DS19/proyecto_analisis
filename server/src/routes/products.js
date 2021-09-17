@@ -3,10 +3,16 @@ const {
   get_products,
   create_product,
   get_product_by_id,
+  get_product_by_name,
+  update_product,
+  delete_product,
 } = require('../controllers/products');
 
 route.get('/', get_products);
-route.get('/:id', get_product_by_id);
+route.get('/id/:id', get_product_by_id);
+route.get('/name/:name', get_product_by_name);
+route.put('/id/:id', update_product);
+route.delete('/id/:id', delete_product);
 route.post('/', create_product);
 
 module.exports = { route };

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.plugin(require('meanie-mongoose-to-json'));
+mongoose.set('debug', true);
 
 const mongo_db_connection = async () => {
   try {

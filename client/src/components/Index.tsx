@@ -3,19 +3,47 @@ import { fetchProducts } from '../app/products/productActions';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { ProductList } from './products/ProductList';
 import { ProductFilter } from './products/ProductFilter';
-import { Box } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Button, Center, Spinner } from '@chakra-ui/react';
 import { ProductPromotions } from './products/discountedProducts/ProductPromotions';
+import { AddIcon } from '@chakra-ui/icons';
+import { nextPage } from '../app/products/productSlice';
 
 interface IndexProps {}
 
 export const Index: React.FC<IndexProps> = (): JSX.Element => {
-  const { products, loading } = useAppSelector((state) => state.product);
+  const { products, loading, limit, currentPage, totalPages } = useAppSelector(
+    (state) => state.product
+  );
   const [filter, setFilter] = React.useState('');
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
-    dispatch(fetchProducts(filter));
-  }, [dispatch, filter]);
+    dispatch(fetchProducts({ category: filter, page: currentPage, limit: limit }));
+  }, [dispatch, filter, currentPage, limit]);
+
+  const renderPaginationState = () => {
+    if (!loading && totalPages !== currentPage) {
+      return (
+        <Button
+          onClick={() => {
+            dispatch(nextPage());
+          }}
+          leftIcon={<AddIcon />}
+        >
+          Ver mas
+        </Button>
+      );
+    } else if (loading) {
+      return <Spinner />;
+    } else if (!loading && totalPages === currentPage) {
+      return (
+        <Alert maxW='40%' status='info' borderRadius='lg'>
+          <AlertIcon />
+          Ya no hay mas productos!
+        </Alert>
+      );
+    }
+  };
 
   return (
     <React.Fragment>
@@ -28,6 +56,7 @@ export const Index: React.FC<IndexProps> = (): JSX.Element => {
       <Box mb={10}>
         <ProductList products={products} loading={loading} />
       </Box>
+      <Center my={5}>{renderPaginationState()}</Center>
     </React.Fragment>
   );
 };

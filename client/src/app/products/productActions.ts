@@ -3,11 +3,16 @@ import { api, delay } from '../api';
 
 export const fetchProducts = createAsyncThunk(
   'product/fecthProducts',
-  async (category: string, { rejectWithValue }) => {
+  async (
+    { category, page, limit }: { category: string; page: number; limit: number },
+    { rejectWithValue }
+  ) => {
     try {
       delay(2000);
       const { data } = await api.get(
-        category ? `/products?category=${category}` : `/products`
+        category
+          ? `/products?category=${category}&page=${page}&limit=${limit}`
+          : `/products?page=${page}&limit=${limit}`
       );
       return data;
     } catch (err: any) {
@@ -21,7 +26,7 @@ export const fetchProduct = createAsyncThunk(
   async (id: string, { rejectWithValue }) => {
     try {
       delay(200);
-      const { data } = await api.get(`/products/${id}`);
+      const { data } = await api.get(`/products/id/${id}`);
       return data;
     } catch (err: any) {
       rejectWithValue(err.message);
@@ -37,7 +42,7 @@ export const fetchProductByName = createAsyncThunk(
   ) => {
     try {
       delay(200);
-      const { data } = await api.get(`/products?name=${name}`);
+      const { data } = await api.get(`/products/name/${name}`);
       callback && callback();
       return data;
     } catch (err: any) {

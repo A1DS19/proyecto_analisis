@@ -1,10 +1,11 @@
 import React from 'react';
 import { Box, Input, Spinner } from '@chakra-ui/react';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { fetchProducts } from '../../app/products/productActions';
 import debounce from 'lodash.debounce';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import { fetchProductByName } from '../../app/products/productActions';
+import { clearPagination } from '../../app/products/productSlice';
 
 interface SearchProductProps {}
 
@@ -14,6 +15,7 @@ interface SearchProductInput {
 
 export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
   const [loading, setLoading] = React.useState(false);
+  const { limit, currentPage } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
 
   const initialValues: SearchProductInput = {
@@ -46,7 +48,8 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
           debouncedCallback(values.product);
 
           if (values.product === '') {
-            dispatch(fetchProducts(''));
+            dispatch(clearPagination());
+            dispatch(fetchProducts({ category: '', page: currentPage, limit }));
           }
         }}
       >

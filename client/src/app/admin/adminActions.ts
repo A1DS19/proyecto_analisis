@@ -9,11 +9,16 @@ import { Order } from '../user/types';
 
 export const fetchProducts = createAsyncThunk(
   'admin/fecthProducts',
-  async (category: string, { rejectWithValue }) => {
+  async (
+    { category, page, limit }: { category: string; page: number; limit: number },
+    { rejectWithValue }
+  ) => {
     try {
       delay(2000);
       const { data } = await api.get(
-        category ? `/products?category=${category}` : `/products`
+        category
+          ? `/products?category=${category}&page=${page}&limit=${limit}`
+          : `/products?page=${page}&limit=${limit}`
       );
       return data;
     } catch (err: any) {
@@ -30,7 +35,7 @@ export const fetchProduct = createAsyncThunk(
   ) => {
     try {
       delay(200);
-      const { data } = await api.get(`/products?name=${name}`);
+      const { data } = await api.get(`/products/name/${name}`);
       callback && callback();
       return data;
     } catch (err: any) {
@@ -47,7 +52,7 @@ export const fetchProductById = createAsyncThunk(
   ) => {
     try {
       delay(200);
-      const { data } = await api.get(`/products/${id}`);
+      const { data } = await api.get(`/products/id/${id}`);
       callback && callback();
       return data;
     } catch (err: any) {
@@ -61,8 +66,9 @@ export const fetchCategories = createAsyncThunk(
   async ({ callback }: { callback?: () => void }, { rejectWithValue }) => {
     try {
       delay(200);
-      const { data } = await api.get(`/category`);
+      const { data } = await api.get(`/category/`);
       callback && callback();
+
       return data;
     } catch (err: any) {
       rejectWithValue(err.message);
@@ -95,7 +101,7 @@ export const updateProduct = createAsyncThunk(
   ) => {
     try {
       delay(200);
-      const { data } = await api.put(`/products/${id}`, body);
+      const { data } = await api.put(`/products/id/${id}`, body);
       callback && callback();
       return data;
     } catch (err: any) {
@@ -112,7 +118,7 @@ export const removeProduct = createAsyncThunk(
   ) => {
     try {
       delay(200);
-      await api.delete(`/products/${id}`);
+      await api.delete(`/products/id/${id}`);
       callback && callback();
       return id;
     } catch (err: any) {
@@ -131,10 +137,10 @@ export const createCategory = createAsyncThunk(
   ) => {
     try {
       delay(200);
-      const { data } = await api.post(`category`, { name });
+      const { data } = await api.post(`category/`, { name });
       callback && callback();
       return data;
-    } catch (err) {
+    } catch (err: any) {
       rejectWithValue(err.message);
     }
   }
@@ -148,10 +154,10 @@ export const updateCategory = createAsyncThunk(
   ) => {
     try {
       delay(200);
-      const { data } = await api.put(`category/${id}`, { name });
+      const { data } = await api.put(`category/id/${id}`, { name });
       callback && callback();
       return data;
-    } catch (err) {
+    } catch (err: any) {
       rejectWithValue(err.message);
     }
   }
@@ -161,10 +167,10 @@ export const deleteCategory = createAsyncThunk(
   'admin/deleteCategory',
   async ({ id, callback }: { id: string; callback: () => void }, { rejectWithValue }) => {
     try {
-      await api.delete(`/category/${id}`);
+      await api.delete(`/category/id/${id}`);
       callback && callback();
       return id;
-    } catch (err) {
+    } catch (err: any) {
       rejectWithValue(err.message);
     }
   }
@@ -178,7 +184,7 @@ export const fetchUsers = createAsyncThunk(
     try {
       const { data } = await api.get('/user');
       return data;
-    } catch (err) {
+    } catch (err: any) {
       rejectWithValue(err.message);
     }
   }
@@ -190,7 +196,7 @@ export const fetchUserById = createAsyncThunk(
     try {
       const { data } = await api.get(`/user/${id}`);
       return data;
-    } catch (err) {
+    } catch (err: any) {
       rejectWithValue(err.message);
     }
   }
@@ -207,7 +213,7 @@ export const createUser = createAsyncThunk(
       callback && callback();
 
       return data;
-    } catch (err) {
+    } catch (err: any) {
       rejectWithValue(err.message);
     }
   }
@@ -228,7 +234,7 @@ export const updateUser = createAsyncThunk(
       const { data } = await api.put(`/user/${id}`, input);
       callback && callback();
       return data;
-    } catch (err) {
+    } catch (err: any) {
       rejectWithValue(err.message);
     }
   }
@@ -241,7 +247,7 @@ export const deleteUser = createAsyncThunk(
       await api.delete(`/user/${id}`);
       callback && callback();
       return id;
-    } catch (err) {
+    } catch (err: any) {
       rejectWithValue(err.message);
     }
   }
@@ -313,7 +319,7 @@ export const updateOrderState = createAsyncThunk(
       const { data } = await api.put(`/order/${id}`, input);
       callback && callback();
       return data;
-    } catch (err) {
+    } catch (err: any) {
       rejectWithValue(err.message);
     }
   }
