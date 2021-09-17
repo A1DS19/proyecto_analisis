@@ -44,7 +44,11 @@ export const productSlice = createSlice({
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.loading = false;
-      state.products = state.products.concat(action.payload.products);
+
+      //Concatenate array and filter duplicates
+      state.products = state.products
+        .concat(action.payload.products)
+        .filter((v, i, a) => a.findIndex((t) => t.id === v.id) === i);
 
       state.currentPage = toInteger(action.payload.currentPage);
       state.totalPages = action.payload.totalPages;

@@ -3,6 +3,7 @@ const express = require('express');
 const { mongo_db_connection } = require('./config/dbConnection');
 const { route: productsRoutes } = require('./routes/products');
 const { route: categoriesRoutes } = require('./routes/categories');
+const { route: userRoutes } = require('./routes/user');
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -17,6 +18,7 @@ const app = express();
 
   app.use('/products', productsRoutes);
   app.use('/category', categoriesRoutes);
+  app.use('/user', userRoutes);
 
   mongo_db_connection();
   app.listen(PORT, () => {

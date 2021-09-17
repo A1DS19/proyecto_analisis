@@ -40,11 +40,11 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
           values: SearchProductInput,
           helpers: FormikHelpers<SearchProductInput>
         ) => {
-          debouncedCallback(values.product);
-
           if (values.product === '') {
             dispatch(clearPagination());
             dispatch(fetchProducts({ category: '', page: currentPage, limit }));
+          } else {
+            debouncedCallback(values.product);
           }
         }}
       >
