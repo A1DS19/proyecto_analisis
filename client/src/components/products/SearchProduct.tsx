@@ -14,8 +14,7 @@ interface SearchProductInput {
 }
 
 export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
-  const [loading, setLoading] = React.useState(false);
-  const { limit, currentPage } = useAppSelector((state) => state.product);
+  const { limit, currentPage, loading } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
 
   const initialValues: SearchProductInput = {
@@ -27,9 +26,6 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
       dispatch(
         fetchProductByName({
           name,
-          callback: () => {
-            setLoading(false);
-          },
         })
       );
     }, 1000),
@@ -44,7 +40,6 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
           values: SearchProductInput,
           helpers: FormikHelpers<SearchProductInput>
         ) => {
-          setLoading(true);
           debouncedCallback(values.product);
 
           if (values.product === '') {

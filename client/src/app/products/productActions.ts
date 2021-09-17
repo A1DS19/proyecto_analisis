@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { api, delay } from '../api';
+import { api } from '../api';
 
 export const fetchProducts = createAsyncThunk(
   'product/fecthProducts',
@@ -8,7 +8,6 @@ export const fetchProducts = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(2000);
       const { data } = await api.get(
         category
           ? `/products?category=${category}&page=${page}&limit=${limit}`
@@ -25,7 +24,6 @@ export const fetchProduct = createAsyncThunk(
   'product/fetchProduct',
   async (id: string, { rejectWithValue }) => {
     try {
-      delay(200);
       const { data } = await api.get(`/products/id/${id}`);
       return data;
     } catch (err: any) {
@@ -41,7 +39,6 @@ export const fetchProductByName = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(200);
       const { data } = await api.get(`/products/name/${name}`);
       callback && callback();
       return data;

@@ -11,6 +11,7 @@ export const ProductPromotions: React.FC<ProductPromotionsProps> = ({
   filter,
 }): JSX.Element => {
   const { products } = useAppSelector((state) => state.product);
+
   const discountedProducts = products.filter((product) => product.isDiscounted === true);
 
   return (

@@ -55,7 +55,7 @@ module.exports.get_product_by_name = async function (req, res) {
       return res.status(404).json({ err: 'Producto no existe' });
     }
 
-    res.json(product);
+    res.json([product]);
   } catch (err) {
     server_error(err, res);
   }

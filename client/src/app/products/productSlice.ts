@@ -70,7 +70,7 @@ export const productSlice = createSlice({
     });
     builder.addCase(fetchProductByName.fulfilled, (state, action) => {
       state.loading = false;
-      state.products = action.payload;
+      state.products = action.payload ? action.payload : state.products;
     });
     builder.addCase(fetchProductByName.rejected, (state, action) => {
       state.loading = false;
