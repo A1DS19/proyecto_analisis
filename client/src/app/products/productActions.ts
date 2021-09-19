@@ -47,3 +47,15 @@ export const fetchProductByName = createAsyncThunk(
     }
   }
 );
+
+export const fetchAllPromotions = createAsyncThunk(
+  'product/fetchAllPromotions',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get('/products/promotions');
+      return data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.err);
+    }
+  }
+);

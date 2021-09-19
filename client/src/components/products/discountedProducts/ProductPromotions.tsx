@@ -1,7 +1,8 @@
 import React from 'react';
 import { Center, Container, Heading } from '@chakra-ui/react';
-import { useAppSelector } from '../../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { ProductDiscountList } from './ProductDiscountList';
+import { fetchAllPromotions } from '../../../app/products/productActions';
 
 interface ProductPromotionsProps {
   filter: string;
@@ -10,9 +11,12 @@ interface ProductPromotionsProps {
 export const ProductPromotions: React.FC<ProductPromotionsProps> = ({
   filter,
 }): JSX.Element => {
-  const { products } = useAppSelector((state) => state.product);
+  const { discountedProducts } = useAppSelector((state) => state.product);
+  const dispatch = useAppDispatch();
 
-  const discountedProducts = products.filter((product) => product.isDiscounted === true);
+  React.useEffect(() => {
+    dispatch(fetchAllPromotions());
+  }, [dispatch]);
 
   return (
     <React.Fragment>

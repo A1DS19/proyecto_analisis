@@ -1,11 +1,17 @@
 import { Product } from './types';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchProduct, fetchProductByName, fetchProducts } from './productActions';
+import {
+  fetchProduct,
+  fetchProductByName,
+  fetchProducts,
+  fetchAllPromotions,
+} from './productActions';
 import { toInteger } from 'lodash';
 
 interface ProductState {
   products: Product[];
   selectedProduct: Product | null;
+  discountedProducts: Product[];
   loading: boolean;
   totalPages: number;
   currentPage: number;
@@ -14,6 +20,7 @@ interface ProductState {
 
 const initialState: ProductState = {
   products: [],
+  discountedProducts: [],
   selectedProduct: null,
   loading: false,
   totalPages: 0,
@@ -77,6 +84,18 @@ export const productSlice = createSlice({
       state.products = action.payload ? action.payload : state.products;
     });
     builder.addCase(fetchProductByName.rejected, (state, action) => {
+      state.loading = false;
+    });
+    //fetch all promotions
+    //fetch product by name
+    builder.addCase(fetchAllPromotions.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchAllPromotions.fulfilled, (state, action) => {
+      state.loading = false;
+      state.discountedProducts = action.payload;
+    });
+    builder.addCase(fetchAllPromotions.rejected, (state, action) => {
       state.loading = false;
     });
   },

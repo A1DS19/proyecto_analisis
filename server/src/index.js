@@ -7,6 +7,7 @@ const { route: userRoutes } = require('./routes/user');
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 const PORT = 5000 || process.env.PORT;
 const app = express();
 
@@ -15,6 +16,8 @@ const app = express();
   app.use(morgan('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(passport.initialize());
+  require('./config/passportAuth');
 
   app.use('/products', productsRoutes);
   app.use('/category', categoriesRoutes);

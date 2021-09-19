@@ -42,6 +42,15 @@ export const requestPasswordReset = Yup.object({
     .lowercase(),
 });
 
+export const passwordReset = Yup.object({
+  password: Yup.string()
+    .required('La contraseña es requerida')
+    .min(5, 'Minimo 5 caracteres'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Las contrasenas deben ser iguales')
+    .required('Repetir la contraseña es requerido'),
+});
+
 export const resetPasswordSchema = Yup.object({
   password: Yup.string()
     .required('La contraseña es requerida')

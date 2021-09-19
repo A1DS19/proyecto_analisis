@@ -19,7 +19,8 @@ import { Formik, FormikHelpers, Form, ErrorMessage, FormikProps } from 'formik';
 import { FunctionComponent } from 'react';
 import { loginValidationSchema } from '../common/validationSchemas/authValidation';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { login } from '../../app/user/userActions';
+import { login, me } from '../../app/user/userActions';
+import { clearErrorMessage } from '../../app/user/userSlice';
 
 interface loginProps {
   onOpen: () => void;
@@ -49,13 +50,24 @@ export const Login: FunctionComponent<loginProps> = ({
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Iniciar Sesion</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton onClick={() => dispatch(clearErrorMessage())} />
           <Formik
             initialValues={initialValues}
             validationSchema={loginValidationSchema}
             onSubmit={async (values: LoginInput, helpers: FormikHelpers<LoginInput>) => {
-              await dispatch(login(values));
-              onClose();
+              try {
+                await dispatch(login(values));
+                await dispatch(
+                  me({
+                    callback: () => {
+                      dispatch(clearErrorMessage());
+                      onClose();
+                    },
+                  })
+                );
+              } catch (error: any) {
+                console.log(error.message);
+              }
             }}
           >
             {(props: FormikProps<LoginInput>) => {
@@ -105,7 +117,14 @@ export const Login: FunctionComponent<loginProps> = ({
                     >
                       Submit
                     </Button>
-                    <Button onClick={onClose}>Cancelar</Button>
+                    <Button
+                      onClick={() => {
+                        onClose();
+                        dispatch(clearErrorMessage());
+                      }}
+                    >
+                      Cancelar
+                    </Button>
                   </ModalFooter>
                 </Form>
               );

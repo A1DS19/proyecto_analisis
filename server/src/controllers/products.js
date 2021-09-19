@@ -114,3 +114,17 @@ module.exports.create_product = async function (req, res) {
     server_error(err, res);
   }
 };
+
+module.exports.get_all_promotions = async function (req, res) {
+  try {
+    const promotions = await Product.find({ isDiscounted: true });
+
+    if (!promotions) {
+      return res.status(404).json({ err: 'No hay promociones' });
+    }
+
+    res.json(promotions);
+  } catch (err) {
+    server_error(err, res);
+  }
+};

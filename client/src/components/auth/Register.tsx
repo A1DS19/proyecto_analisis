@@ -17,7 +17,8 @@ import { Formik, Form, FormikProps, FormikHelpers, ErrorMessage } from 'formik';
 import { FunctionComponent } from 'react';
 import { registerValidationSchema } from '../common/validationSchemas/authValidation';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { register } from '../../app/user/userActions';
+import { me, register } from '../../app/user/userActions';
+import { clearErrorMessage } from '../../app/user/userSlice';
 
 interface registerProps {
   onOpen: () => void;
@@ -57,7 +58,7 @@ export const Register: FunctionComponent<registerProps> = ({
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Crear Cuenta</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton onClick={() => dispatch(clearErrorMessage())} />
 
           <Formik
             initialValues={initialValues}
@@ -66,7 +67,19 @@ export const Register: FunctionComponent<registerProps> = ({
               values: RegisterInput,
               helpers: FormikHelpers<RegisterInput>
             ) => {
-              await dispatch(register(values));
+              try {
+                await dispatch(register(values));
+                await dispatch(
+                  me({
+                    callback: () => {
+                      dispatch(clearErrorMessage());
+                      onClose();
+                    },
+                  })
+                );
+              } catch (error) {
+                console.log(error);
+              }
             }}
           >
             {(props: FormikProps<RegisterInput>) => {
@@ -171,7 +184,14 @@ export const Register: FunctionComponent<registerProps> = ({
                     >
                       Submit
                     </Button>
-                    <Button onClick={onClose}>Cancelar</Button>
+                    <Button
+                      onClick={() => {
+                        onClose();
+                        dispatch(clearErrorMessage());
+                      }}
+                    >
+                      Cancelar
+                    </Button>
                   </ModalFooter>
                 </Form>
               );
