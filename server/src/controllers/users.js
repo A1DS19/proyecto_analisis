@@ -4,6 +4,9 @@ const { server_error } = require('../util/controllerFuncs');
 const { v4: uuidv4 } = require('uuid');
 const { sendEmail } = require('../services/sendEmail');
 const bcrypt = require('bcryptjs');
+const ejs = require('ejs');
+const fs = require('fs');
+const path = require('path');
 
 const generateJWT = (user) => {
   return jwt.sign({ user }, process.env.JWT_SECRET);
@@ -77,6 +80,9 @@ module.exports.update_user_data = async function (req, res) {
 
 module.exports.request_password_reset = async function (req, res) {
   try {
+    const resetPasswordEJS = path.join(__dirname, '..', 'views', 'resetPassword.ejs');
+    const resetPasswordFile = fs.readFileSync(resetPasswordEJS, 'utf-8');
+    const resetPasswordCompiled = ejs.compile(resetPasswordFile);
     const email = req.body.email;
     const user = await User.findOne({ email });
 
@@ -89,11 +95,9 @@ module.exports.request_password_reset = async function (req, res) {
     user.resetPasswordTokenExpiryDate = new Date(Date.now() + 60 * 60 * 24 * 1000);
     await user.save();
 
-    await sendEmail(
-      email,
-      'RESET CONTRASEÑA',
-      `<a href="http://localhost:3000/auth/forgot_password/${user.resetPasswordToken}">Haga click aqui para resetear su contraseña</a>`
-    );
+    const resetPasswordHtml = resetPasswordCompiled({ token: user.resetPasswordToken });
+
+    await sendEmail(email, 'RESET CONTRASEÑA', resetPasswordHtml);
 
     res.status(202).send(true);
   } catch (err) {

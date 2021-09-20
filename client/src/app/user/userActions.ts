@@ -42,8 +42,6 @@ export const me = createAsyncThunk(
         },
       });
 
-      console.log(data);
-
       if (data.user) {
         callback();
       }
