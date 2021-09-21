@@ -94,6 +94,6 @@ export const resetPassword = async ({
     const { data } = await api.post('/user/reset-password', body);
     return data.msg;
   } catch (err: any) {
-    console.log(err.response.data.err);
+    return err.response.data.err;
   }
 };

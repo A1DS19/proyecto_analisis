@@ -121,7 +121,7 @@ module.exports.reset_password = async function (req, res) {
     });
 
     if (!user) {
-      return res.status(400).json({ msg: 'El token expiro, intentelo de nuevo' });
+      return res.status(400).json({ err: 'El token expiro, intentelo de nuevo' });
     }
 
     const salt = await bcrypt.genSalt(10);
