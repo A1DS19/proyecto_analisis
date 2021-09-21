@@ -109,8 +109,6 @@ module.exports.reset_password = async function (req, res) {
   try {
     const { password, token } = req.body;
 
-    console.log(password);
-
     const user = await User.findOne({
       $and: [
         { resetPasswordToken: token },
