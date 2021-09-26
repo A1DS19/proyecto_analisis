@@ -16,7 +16,7 @@ export const OrderProductItem: React.FC<OrderProductItemProps> = ({
         maxH='80px'
         maxW='80px'
         borderRadius='lg'
-        src={product.images[0]}
+        src={product.images[0].url}
         alt='imagen carrito'
       />
 

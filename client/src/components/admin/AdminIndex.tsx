@@ -37,13 +37,9 @@ export const AdminIndex: React.FC<AdminIndexProps> = (): JSX.Element => {
           <CategoryIndex />
         </TabPanel>
 
-        <TabPanel>
-          <OrdersIndex />
-        </TabPanel>
+        <TabPanel>{/* <OrdersIndex /> */}</TabPanel>
 
-        <TabPanel>
-          <UsersIndex />
-        </TabPanel>
+        <TabPanel>{/* <UsersIndex /> */}</TabPanel>
       </TabPanels>
     </Tabs>
   );

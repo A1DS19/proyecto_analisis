@@ -31,7 +31,7 @@ export const CartItem: React.FC<CartItemProps> = ({ product }): JSX.Element => {
           maxH='160px'
           maxW='160px'
           borderRadius='lg'
-          src={product.images[0]}
+          src={product.images[0].url}
           alt='imagen carrito'
         />
 

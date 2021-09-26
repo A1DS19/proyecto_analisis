@@ -6,6 +6,8 @@ import { IsUpdateOrCreate } from './AddUpdateProduct';
 //import { Image } from 'cloudinary-react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { AlertModal } from '../../common/AlertModal';
+import { deleteImage } from '../../../app/products/productActions';
+import { Image as ImageType } from '../../../app/products/types';
 
 interface ListImagesProps {
   props: FormikProps<IsUpdateOrCreate>;
@@ -13,14 +15,16 @@ interface ListImagesProps {
 
 export const ListImages: React.FC<ListImagesProps> = ({ props }): JSX.Element => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [selectedImage, setSelectedImage] = React.useState('');
+  const [selectedImage, setSelectedImage] = React.useState<ImageType | null>(null);
   const cancelRef = React.useRef();
 
-  const removeImage = () => {
-    props.setFieldValue(
-      'images',
-      props.values.images?.filter((img) => img !== selectedImage)
-    );
+  const removeImage = async () => {
+    await deleteImage(selectedImage?.public_id!, () => {
+      props.setFieldValue(
+        'images',
+        props.values.images?.filter((img) => img.url !== selectedImage?.url)
+      );
+    });
   };
 
   return (
@@ -33,7 +37,7 @@ export const ListImages: React.FC<ListImagesProps> = ({ props }): JSX.Element =>
       <Grid templateColumns='repeat(3, 1fr)'>
         {props.values.images?.map((img) => {
           return (
-            <Box key={img} py={2} px={1} position='relative'>
+            <Box key={img.url} py={2} px={1} position='relative'>
               <Box
                 position='absolute'
                 top='-1'
@@ -65,7 +69,7 @@ export const ListImages: React.FC<ListImagesProps> = ({ props }): JSX.Element =>
                 height={140}
                 width={140}
                 objectFit={'cover'}
-                src={img}
+                src={img.url}
               />
             </Box>
           );

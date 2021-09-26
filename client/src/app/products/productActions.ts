@@ -59,3 +59,17 @@ export const fetchAllPromotions = createAsyncThunk(
     }
   }
 );
+
+export const deleteImage = async (
+  public_id: string,
+  callback: () => void
+): Promise<void> => {
+  try {
+    const { data } = await api.post('/products/delete_image', { public_id });
+    if (data) {
+      callback();
+    }
+  } catch (err: any) {
+    console.log(err);
+  }
+};

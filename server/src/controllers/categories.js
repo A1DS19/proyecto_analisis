@@ -20,11 +20,7 @@ module.exports.update_category = async function (req, res) {
       return res.status(404).json({ err: 'Categoria no existe' });
     }
 
-    const updatedCategory = await Category.findOneAndUpdate(
-      { id },
-      { name },
-      { new: true }
-    );
+    const updatedCategory = await Category.findByIdAndUpdate(id, { name }, { new: true });
 
     res.status(202).json(updatedCategory);
   } catch (err) {

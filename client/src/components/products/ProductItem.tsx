@@ -60,7 +60,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ product }): JSX.Elemen
           height={250}
           width={282}
           objectFit={'cover'}
-          src={product.images[0]}
+          src={product.images[0].url}
         />
       </Box>
       <Stack pt={10} align={'center'}>

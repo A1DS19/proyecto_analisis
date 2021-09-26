@@ -23,6 +23,7 @@ import {
   fetchProductById,
   updateProduct,
 } from '../../../app/admin/adminActions';
+import { Image } from '../../../app/products/types';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { ErrorMessageForm } from '../../common/ErrorMessageForm';
 import { FullSpinner } from '../../common/FullSpinner';
@@ -35,7 +36,7 @@ interface IAddUpdateProduct {}
 interface CreateProduct {
   name: string;
   description: string;
-  images: string[];
+  images: [Image];
   quantity: number;
   price: number;
   category: string;
@@ -44,7 +45,7 @@ interface CreateProduct {
 interface UpdateProduct {
   name?: string;
   description?: string;
-  images?: string[];
+  images?: [Image];
   quantity?: number;
   price?: number;
   category?: string;
@@ -78,7 +79,7 @@ export const AddUpdateProduct: React.FC<IAddUpdateProduct> = (): JSX.Element => 
     name: isUpdate ? product?.name : '',
     category: isUpdate ? product?.category : '',
     description: isUpdate ? product?.description : '',
-    images: isUpdate ? product?.images : [],
+    images: isUpdate ? product?.images : ([] as any),
     price: isUpdate ? product?.price : 0,
     quantity: isUpdate ? product?.quantity : 0,
   };
@@ -128,8 +129,6 @@ export const AddUpdateProduct: React.FC<IAddUpdateProduct> = (): JSX.Element => 
         }}
       >
         {(props: FormikProps<IsUpdateOrCreate>) => {
-          //console.log(props.values);
-
           return (
             <Grid templateColumns='repeat(2, 1fr)' gap={3}>
               <Box>

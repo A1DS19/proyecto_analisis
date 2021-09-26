@@ -6,7 +6,6 @@ import { api, delay } from '../api';
 import { Order } from '../user/types';
 
 //PRODUCTS
-
 export const fetchProducts = createAsyncThunk(
   'admin/fecthProducts',
   async (
@@ -14,7 +13,6 @@ export const fetchProducts = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(2000);
       const { data } = await api.get(
         category
           ? `/products?category=${category}&page=${page}&limit=${limit}`
@@ -34,7 +32,6 @@ export const fetchProduct = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(200);
       const { data } = await api.get(`/products/name/${name}`);
       callback && callback();
       return data;
@@ -51,7 +48,6 @@ export const fetchProductById = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(200);
       const { data } = await api.get(`/products/id/${id}`);
       callback && callback();
       return data;
@@ -65,7 +61,6 @@ export const fetchCategories = createAsyncThunk(
   'admin/fetchCategories',
   async ({ callback }: { callback?: () => void }, { rejectWithValue }) => {
     try {
-      delay(200);
       const { data } = await api.get(`/category/`);
       callback && callback();
 
@@ -76,6 +71,7 @@ export const fetchCategories = createAsyncThunk(
   }
 );
 
+//FALTA VALIDAR HASTA TENER IMAGEN
 export const createProduct = createAsyncThunk(
   'admin/createProduct',
   async (
@@ -83,7 +79,6 @@ export const createProduct = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(200);
       const { data } = await api.post(`/products`, body);
       callback && callback();
       return data;
@@ -100,7 +95,6 @@ export const updateProduct = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(200);
       const { data } = await api.put(`/products/id/${id}`, body);
       callback && callback();
       return data;
@@ -117,7 +111,6 @@ export const removeProduct = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(200);
       await api.delete(`/products/id/${id}`);
       callback && callback();
       return id;
@@ -128,7 +121,6 @@ export const removeProduct = createAsyncThunk(
 );
 
 //CATEGORIES
-
 export const createCategory = createAsyncThunk(
   'admin/createCategory',
   async (
@@ -136,8 +128,7 @@ export const createCategory = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(200);
-      const { data } = await api.post(`category/`, { name });
+      const { data } = await api.post(`/category/`, { name });
       callback && callback();
       return data;
     } catch (err: any) {
@@ -153,8 +144,7 @@ export const updateCategory = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(200);
-      const { data } = await api.put(`category/id/${id}`, { name });
+      const { data } = await api.put(`/category/id/${id}`, { name });
       callback && callback();
       return data;
     } catch (err: any) {
@@ -163,6 +153,7 @@ export const updateCategory = createAsyncThunk(
   }
 );
 
+//revisar
 export const deleteCategory = createAsyncThunk(
   'admin/deleteCategory',
   async ({ id, callback }: { id: string; callback: () => void }, { rejectWithValue }) => {
@@ -177,7 +168,6 @@ export const deleteCategory = createAsyncThunk(
 );
 
 //USERS
-
 export const fetchUsers = createAsyncThunk(
   'admin/fetchUsers',
   async (_, { rejectWithValue }) => {
@@ -271,7 +261,6 @@ export const fetchUserByIdNumber = createAsyncThunk(
 );
 
 //ORDERS
-
 export const fetchOrders = createAsyncThunk(
   'admin/fetchOrders',
   async ({ filter }: { filter: filter_order }, { rejectWithValue }) => {

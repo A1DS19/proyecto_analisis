@@ -21,7 +21,7 @@ export const ProductDiscountItem: React.FC<ProductDiscountItemProps> = ({
       position='relative'
       onClick={() => history.push(`/product/${product.id}`)}
     >
-      <Image rounded={'lg'} src={product.images[0]} />
+      <Image rounded={'lg'} src={product.images[0].url} />
       <Box color='gray.700' fontSize='md' position='absolute' top='1px' right='5px'>
         <DiscountedPrice
           product={product}

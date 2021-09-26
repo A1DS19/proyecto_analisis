@@ -1,5 +1,6 @@
 const { Product } = require('../models/Product');
 const { server_error } = require('../util/controllerFuncs');
+const { deleteImage } = require('../services/cloudinary');
 
 module.exports.get_products = async function (req, res) {
   try {
@@ -7,18 +8,18 @@ module.exports.get_products = async function (req, res) {
     const count = await Product.countDocuments();
     let products = null;
 
-    if (!category && page !== 0) {
+    if (!category && page != 0) {
       products = await Product.find()
         .limit(limit * 1)
         .skip((page - 1) * limit)
         .exec();
-    } else if (category && page !== 0) {
+    } else if (category && page != 0) {
       products = await Product.find({ category })
         .limit(limit * 1)
         .skip((page - 1) * limit)
         .exec();
-    } else if (page === 0) {
-      products = await Product.find(category && { category });
+    } else if (page == 0) {
+      products = await Product.find();
     }
 
     res.json({
@@ -49,7 +50,9 @@ module.exports.get_product_by_id = async function (req, res) {
 module.exports.get_product_by_name = async function (req, res) {
   try {
     const { name } = req.params;
-    const product = await Product.findOne({ name });
+    const product = await Product.findOne({
+      name: { $regex: new RegExp(name), $options: 'i' },
+    });
 
     if (!product) {
       return res.status(404).json({ err: 'Producto no existe' });
@@ -71,7 +74,9 @@ module.exports.update_product = async function (req, res) {
       return res.status(404).json({ err: 'Producto no existe' });
     }
 
-    const updatedProduct = await Product.findOneAndUpdate({ id }, data, { new: true });
+    const updatedProduct = await Product.findByIdAndUpdate(id, data, {
+      new: true,
+    });
 
     res.status(202).json(updatedProduct);
   } catch (err) {
@@ -124,6 +129,28 @@ module.exports.get_all_promotions = async function (req, res) {
     }
 
     res.json(promotions);
+  } catch (err) {
+    server_error(err, res);
+  }
+};
+
+module.exports.delete_image = async function (req, res) {
+  try {
+    const { public_id } = req.body;
+
+    const result = await deleteImage(public_id);
+
+    if (!result) {
+      return res.status(500).json({ msg: 'No se pudo borrar la imagen' });
+    }
+
+    const product = await Product.findOne({ images: { $elemMatch: { public_id } } });
+
+    if (!product) {
+      return res.status(500).json({ msg: 'No se pudo borrar la imagen' });
+    }
+
+    res.status(202).json({ msg: true });
   } catch (err) {
     server_error(err, res);
   }

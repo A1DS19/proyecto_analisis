@@ -4,7 +4,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { IsUpdateOrCreate } from './AddUpdateProduct';
 import Dropzone, { IDropzoneProps } from 'react-dropzone-uploader';
 import axios from 'axios';
-
+import { Image } from '../../../app/products/types';
 interface AddImageProps {
   props: FormikProps<IsUpdateOrCreate>;
   setImgLoading: Dispatch<SetStateAction<number | null>>;
@@ -16,7 +16,7 @@ export const AddImage: React.FC<AddImageProps> = ({
   setImgLoading,
   imgLoading,
 }): JSX.Element => {
-  const urls: Array<string> = [...props.values.images!];
+  const urls: Array<Image> = [...props.values.images!];
 
   const handleChangeStatus: IDropzoneProps['onChangeStatus'] = ({ file }, status) => {};
 
@@ -45,7 +45,7 @@ export const AddImage: React.FC<AddImageProps> = ({
       //urls.push(data.public_id);
 
       //temp
-      urls.push(data.url);
+      urls.push({ url: data.url, public_id: data.public_id });
 
       props.setFieldValue('images', urls);
     });

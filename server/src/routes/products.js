@@ -7,6 +7,7 @@ const {
   update_product,
   delete_product,
   get_all_promotions,
+  delete_image,
 } = require('../controllers/products');
 
 route.get('/', get_products);
@@ -16,5 +17,6 @@ route.get('/promotions', get_all_promotions);
 route.put('/id/:id', update_product);
 route.delete('/id/:id', delete_product);
 route.post('/', create_product);
+route.post('/delete_image', delete_image);
 
 module.exports = { route };
