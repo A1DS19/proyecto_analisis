@@ -18,7 +18,3 @@ Con este sistema los usuarios se van a crear una cuenta personal con la cual van
 3. Clonar repositorio.
 4. Entrar en carpeta client y correr `yarn start`.
 5. Entrar en carpeta server y correr `yarn dev`.
-
-## To-do:
-
-- Cuando se empieze el trabajo con el server generar signed requests a cloudinary para mejorar file performance con Image de cloudinary-react.
