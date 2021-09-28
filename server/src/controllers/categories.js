@@ -37,7 +37,7 @@ module.exports.delete_category = async function (req, res) {
       return res.status(404).json({ err: 'Categoria no existe' });
     }
 
-    await Category.findOneAndDelete({ id });
+    await Category.findByIdAndDelete(id);
 
     res.status(202).json(true);
   } catch (err) {
