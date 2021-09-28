@@ -153,7 +153,6 @@ export const updateCategory = createAsyncThunk(
   }
 );
 
-//revisar
 export const deleteCategory = createAsyncThunk(
   'admin/deleteCategory',
   async ({ id, callback }: { id: string; callback: () => void }, { rejectWithValue }) => {
