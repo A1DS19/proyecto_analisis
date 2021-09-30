@@ -64,6 +64,7 @@ export const AddUpdateCategory: React.FC<AddUpdateCategoryProps> = ({
                 name: transformedName,
                 callback: () => {
                   helpers.setSubmitting(false);
+                  setSelectedCategory(undefined);
                 },
               })
             );
