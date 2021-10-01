@@ -11,7 +11,11 @@ import {
   updateCategory,
   updateProduct,
 } from '../adminActions';
-import { deleteProductDiscount, updateProductDiscount } from '../actions/promotions';
+import {
+  deleteProductDiscount,
+  fetchAllPromotions,
+  updateProductDiscount,
+} from '../actions/promotions';
 import { AdminState } from '../adminSlice';
 
 export const fetchProductsExtraReducer = (
@@ -182,6 +186,10 @@ export const updateProductDiscountExtraReducers = (
   builder.addCase(updateProductDiscount.fulfilled, (state, action) => {
     state.loading = false;
 
+    state.discountedProducts = [
+      ...state.discountedProducts.filter((item) => item.id !== action.payload.id),
+      action.payload,
+    ];
     state.inventory = [
       ...state.inventory.filter((item) => item.id !== action.payload.id),
       action.payload,
@@ -200,12 +208,30 @@ export const deleteProductDiscountExtraReducers = (
   });
   builder.addCase(deleteProductDiscount.fulfilled, (state, action) => {
     state.loading = false;
+    state.discountedProducts = [
+      ...state.discountedProducts.filter((item) => item.id !== action.payload.id),
+    ];
     state.inventory = [
       ...state.inventory.filter((item) => item.id !== action.payload.id),
       action.payload,
     ];
   });
   builder.addCase(deleteProductDiscount.rejected, (state, action) => {
+    state.loading = false;
+  });
+};
+
+export const fetchAllPromotionsExtraReducers = (
+  builder: ActionReducerMapBuilder<AdminState>
+) => {
+  builder.addCase(fetchAllPromotions.pending, (state, action) => {
+    state.loading = true;
+  });
+  builder.addCase(fetchAllPromotions.fulfilled, (state, action) => {
+    state.loading = false;
+    state.discountedProducts = action.payload;
+  });
+  builder.addCase(fetchAllPromotions.rejected, (state, action) => {
     state.loading = false;
   });
 };

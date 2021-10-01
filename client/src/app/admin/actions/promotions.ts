@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { api, delay } from '../../api';
+import { api } from '../../api';
 import { IAddUpdatePromotion } from '../../../components/admin/promotions/AddUpdatePromotion';
 
 export const updateProductDiscount = createAsyncThunk(
@@ -13,12 +13,11 @@ export const updateProductDiscount = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(200);
-      const { data } = await api.put(`/products/${id}`, input);
+      const { data } = await api.put(`/products/promotions/id/${id}`, input);
       callback && callback();
       return data;
-    } catch (err) {
-      rejectWithValue(err.message);
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.err);
     }
   }
 );
@@ -30,17 +29,23 @@ export const deleteProductDiscount = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const removeDiscountValue = {
-        isDiscounted: false,
-        discountedPrice: 0,
-      };
-
-      delay(200);
-      const { data } = await api.put(`/products/${id}`, removeDiscountValue);
+      const { data } = await api.delete(`/products/promotions/id/${id}`);
       callback && callback();
       return data;
-    } catch (err) {
-      rejectWithValue(err.message);
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.err);
+    }
+  }
+);
+
+export const fetchAllPromotions = createAsyncThunk(
+  'admin/fetchAllPromotions',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get('/products/promotions');
+      return data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data.err);
     }
   }
 );

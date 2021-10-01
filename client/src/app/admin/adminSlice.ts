@@ -14,6 +14,7 @@ import {
   updateProductExtraReducer,
   deleteProductDiscountExtraReducers,
   updateProductDiscountExtraReducers,
+  fetchAllPromotionsExtraReducers,
 } from './extraReducers/InventoryExtraReducers';
 import {
   createUserExtraReducer,
@@ -42,12 +43,14 @@ export interface AdminState {
   currentPage: number;
   limit: number;
   totalPages: number;
+  discountedProducts: Product[];
 }
 
 const initialState: AdminState = {
   users: [],
   user: null,
   inventory: [],
+  discountedProducts: [],
   product: null,
   orders: [],
   order: null,
@@ -85,6 +88,7 @@ export const adminSlice = createSlice({
     updateOrderStateExtraReducer(builder);
     deleteProductDiscountExtraReducers(builder);
     updateProductDiscountExtraReducers(builder);
+    fetchAllPromotionsExtraReducers(builder);
   },
 });
 
