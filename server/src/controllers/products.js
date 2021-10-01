@@ -155,3 +155,50 @@ module.exports.delete_image = async function (req, res) {
     server_error(err, res);
   }
 };
+
+module.exports.updatePromotion = async function (req, res) {
+  try {
+    const { id } = req.params;
+    const { discountedPrice, isDiscounted } = req.body;
+
+    const product = await Product.findByIdAndUpdate(
+      id,
+      {
+        discountedPrice,
+        isDiscounted,
+      },
+      { new: true }
+    );
+
+    if (!product) {
+      return res.status(404).json({ msg: 'No se encontro el producto' });
+    }
+
+    res.status(202).json(product);
+  } catch (err) {
+    server_error(err, res);
+  }
+};
+
+module.exports.deletePromotion = async function (req, res) {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findByIdAndUpdate(
+      id,
+      {
+        discountedPrice: 0,
+        isDiscounted: false,
+      },
+      { new: true }
+    );
+
+    if (!product) {
+      return res.status(404).json({ msg: 'No se encontro el producto' });
+    }
+
+    res.status(202).json(product);
+  } catch (err) {
+    server_error(err, res);
+  }
+};

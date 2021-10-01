@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchProducts } from '../../../app/admin/adminActions';
+import { fetchAllPromotions } from '../../../app/admin/actions/promotions';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { FullSpinner } from '../../common/FullSpinner';
 import { PromotionsTable } from './PromotionsTable';
@@ -9,10 +9,12 @@ interface PromotionsIndexProps {}
 
 export const PromotionsIndex: React.FC<PromotionsIndexProps> = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const { inventory, loading } = useAppSelector((state) => state.admin);
+  const { inventory, loading, discountedProducts } = useAppSelector(
+    (state) => state.admin
+  );
 
   React.useEffect(() => {
-    dispatch(fetchProducts({ category: '', page: 0, limit: 1000 }));
+    dispatch(fetchAllPromotions());
   }, [dispatch]);
 
   if (loading) return <FullSpinner />;
@@ -22,10 +24,7 @@ export const PromotionsIndex: React.FC<PromotionsIndexProps> = (): JSX.Element =
       {/* <Box maxW='30%' my={3}>
         <SearchProduct />
       </Box> */}
-      <PromotionsTable
-        discountedInventory={inventory.filter((product) => product.isDiscounted === true)}
-        inventory={inventory}
-      />
+      <PromotionsTable discountedInventory={discountedProducts} inventory={inventory} />
     </Box>
   );
 };
