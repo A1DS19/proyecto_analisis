@@ -103,17 +103,14 @@ module.exports.delete_product = async function (req, res) {
 
 module.exports.create_product = async function (req, res) {
   try {
-    const { name, description, images, quantity, price, category } = req.body;
-    const product = new Product({
-      name,
-      description,
-      images,
-      quantity,
-      price,
-      category,
-    });
+    const body = req.body;
 
-    await product.save();
+    const product = await Product.create(body);
+
+    if (!product) {
+      return res.status(402).json({ msg: 'No se creo' });
+    }
+
     res.status(201).json(product);
   } catch (error) {
     server_error(err, res);
