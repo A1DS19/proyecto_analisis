@@ -1,4 +1,5 @@
 const route = require('express').Router();
+const passport = require('passport');
 const {
   create_category,
   fetch_categories,
@@ -6,9 +7,20 @@ const {
   delete_category,
 } = require('../controllers/categories');
 
-route.post('/', create_category);
 route.get('/', fetch_categories);
-route.put('/id/:id', update_category);
-route.delete('/id/:id', delete_category);
+
+route.post('/', passport.authenticate('isAdmin', { session: false }), create_category);
+
+route.put(
+  '/id/:id',
+  passport.authenticate('isAdmin', { session: false }),
+  update_category
+);
+
+route.delete(
+  '/id/:id',
+  passport.authenticate('isAdmin', { session: false }),
+  delete_category
+);
 
 module.exports = { route };

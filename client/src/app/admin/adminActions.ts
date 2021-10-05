@@ -79,7 +79,11 @@ export const createProduct = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.post(`/products`, body);
+      const { data } = await api.post(`/products`, body, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
       return data;
     } catch (err: any) {
@@ -95,7 +99,11 @@ export const updateProduct = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.put(`/products/id/${id}`, body);
+      const { data } = await api.put(`/products/id/${id}`, body, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
       return data;
     } catch (err: any) {
@@ -111,7 +119,11 @@ export const removeProduct = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      await api.delete(`/products/id/${id}`);
+      await api.delete(`/products/id/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
       return id;
     } catch (err: any) {
@@ -128,7 +140,15 @@ export const createCategory = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.post(`/category/`, { name });
+      const { data } = await api.post(
+        `/category/`,
+        { name },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
       callback && callback();
       return data;
     } catch (err: any) {
@@ -144,7 +164,15 @@ export const updateCategory = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.put(`/category/id/${id}`, { name });
+      const { data } = await api.put(
+        `/category/id/${id}`,
+        { name },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
       callback && callback();
       return data;
     } catch (err: any) {
@@ -157,7 +185,11 @@ export const deleteCategory = createAsyncThunk(
   'admin/deleteCategory',
   async ({ id, callback }: { id: string; callback: () => void }, { rejectWithValue }) => {
     try {
-      await api.delete(`/category/id/${id}`);
+      await api.delete(`/category/id/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
       return id;
     } catch (err: any) {
@@ -171,7 +203,11 @@ export const fetchUsers = createAsyncThunk(
   'admin/fetchUsers',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.get('/user');
+      const { data } = await api.get('/user', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       return data;
     } catch (err: any) {
       rejectWithValue(err.message);
@@ -183,7 +219,11 @@ export const fetchUserById = createAsyncThunk(
   'admin/fetchUserbyId',
   async ({ id }: { id: string }, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(`/user/${id}`);
+      const { data } = await api.get(`/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       return data;
     } catch (err: any) {
       rejectWithValue(err.message);
@@ -198,7 +238,11 @@ export const createUser = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.post('/user', input);
+      const { data } = await api.post('/user', input, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
 
       return data;
@@ -220,7 +264,11 @@ export const updateUser = createAsyncThunk(
   ) => {
     try {
       delay(200);
-      const { data } = await api.put(`/user/${id}`, input);
+      const { data } = await api.put(`/user/${id}`, input, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
       return data;
     } catch (err: any) {
@@ -233,7 +281,11 @@ export const deleteUser = createAsyncThunk(
   'admin/deleteUser',
   async ({ id, callback }: { id: string; callback: () => void }, { rejectWithValue }) => {
     try {
-      await api.delete(`/user/${id}`);
+      await api.delete(`/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
       return id;
     } catch (err: any) {
@@ -249,8 +301,11 @@ export const fetchUserByIdNumber = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(200);
-      const { data } = await api.get(`/user?idNumber=${idNumber}`);
+      const { data } = await api.get(`/user?idNumber=${idNumber}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
       return data;
     } catch (err: any) {
@@ -264,12 +319,20 @@ export const fetchOrders = createAsyncThunk(
   'admin/fetchOrders',
   async ({ filter }: { filter: filter_order }, { rejectWithValue }) => {
     try {
-      delay(200);
       const { data } =
         filter === 'todas'
-          ? await api.get(`/order`)
+          ? await api.get(`/order`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            })
           : await api.get(
-              `/order?isDelivered=${filter === 'entregada' ? 'true' : 'false'}`
+              `/order?isDelivered=${filter === 'entregada' ? 'true' : 'false'}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+              }
             );
 
       return data;
@@ -286,7 +349,6 @@ export const fetchOrderById = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(200);
       const { data } = await api.get(`/order?id=${id}`);
       callback && callback();
       return data;
@@ -303,8 +365,11 @@ export const updateOrderState = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(200);
-      const { data } = await api.put(`/order/${id}`, input);
+      const { data } = await api.put(`/order/${id}`, input, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
       return data;
     } catch (err: any) {

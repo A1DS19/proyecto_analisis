@@ -65,7 +65,15 @@ export const deleteImage = async (
   callback: () => void
 ): Promise<void> => {
   try {
-    const { data } = await api.post('/products/delete_image', { public_id });
+    const { data } = await api.post(
+      '/products/delete_image',
+      { public_id },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }
+    );
     if (data) {
       callback();
     }

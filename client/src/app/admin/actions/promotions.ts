@@ -13,7 +13,11 @@ export const updateProductDiscount = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.put(`/products/promotions/id/${id}`, input);
+      const { data } = await api.put(`/products/promotions/id/${id}`, input, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
       return data;
     } catch (err: any) {
@@ -29,7 +33,11 @@ export const deleteProductDiscount = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.delete(`/products/promotions/id/${id}`);
+      const { data } = await api.delete(`/products/promotions/id/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
       return data;
     } catch (err: any) {
