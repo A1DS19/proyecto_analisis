@@ -19,7 +19,7 @@ const app = express();
   app.use(passport.initialize());
   require('./config/passportAuth');
 
-  console.log(123);
+  console.log(69);
 
   app.use('/products', productsRoutes);
   app.use('/category', categoriesRoutes);
