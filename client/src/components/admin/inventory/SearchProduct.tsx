@@ -14,6 +14,7 @@ interface SearchProductInput {
 export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
   const { error } = useAppSelector((state) => state.admin);
   const dispatch = useAppDispatch();
+  const [loading, setLoading] = React.useState(false);
 
   const initialValues: SearchProductInput = {
     product: '',
@@ -21,12 +22,13 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
 
   const debouncedCallback = React.useCallback(
     debounce((name: string, helpers: FormikHelpers<SearchProductInput>) => {
+      setLoading(true);
       !!name && name.length > 0
         ? dispatch(
             fetchProduct({
               name,
               callback: () => {
-                helpers.setSubmitting(false);
+                setLoading(false);
               },
             })
           )
@@ -36,10 +38,11 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
               page: 0,
               limit: 1000,
               callback: () => {
-                helpers.setSubmitting(false);
+                setLoading(false);
               },
             })
           );
+      helpers.setFieldValue('product', '');
     }, 1000),
     [dispatch]
   );
@@ -71,7 +74,7 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
                   placeholder='Buscar producto'
                   focusBorderColor='gray.500'
                 />
-                {!error && props.isSubmitting && <Spinner margin='auto 0' ml={2} />}
+                {!error && loading && <Spinner margin='auto 0' ml={2} />}
               </Box>
             </Form>
           );
