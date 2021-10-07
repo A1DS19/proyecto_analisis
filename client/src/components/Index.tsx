@@ -51,10 +51,10 @@ export const Index: React.FC<IndexProps> = (): JSX.Element => {
         <ProductFilter setFilter={setFilter} filter={filter} />
       </Box>
       <Box mt={3} mb={10}>
-        <ProductPromotions filter={filter} />
+        {(!error || products.length > 0) && <ProductPromotions filter={filter} />}
       </Box>
       <Box mb={10}>
-        {!error ? (
+        {!error || products.length > 0 ? (
           <ProductList products={products} loading={loading} />
         ) : (
           <Box display='flex' alignItems='center' justifyContent='center'>
@@ -65,7 +65,7 @@ export const Index: React.FC<IndexProps> = (): JSX.Element => {
           </Box>
         )}
       </Box>
-      <Center my={5}>{!error && renderPaginationState()}</Center>
+      <Center my={5}>{(!error || products.length > 0) && renderPaginationState()}</Center>
     </React.Fragment>
   );
 };

@@ -45,6 +45,9 @@ export const productSlice = createSlice({
       state.currentPage = 1;
       state.totalPages = 0;
     },
+    clearError(state) {
+      state.error = '';
+    },
   },
   extraReducers: (builder) => {
     //fetchProducts
@@ -58,7 +61,6 @@ export const productSlice = createSlice({
       state.products = state.products
         .concat(action.payload.products)
         .filter((v, i, a) => a.findIndex((t) => t.id === v.id) === i);
-      state.error = '';
 
       state.currentPage = toInteger(action.payload.currentPage);
       state.totalPages = action.payload.totalPages;
@@ -74,7 +76,6 @@ export const productSlice = createSlice({
     builder.addCase(fetchProduct.fulfilled, (state, action) => {
       state.loading = false;
       state.selectedProduct = action.payload;
-      state.error = '';
     });
     builder.addCase(fetchProduct.rejected, (state, action) => {
       state.loading = false;
@@ -87,10 +88,10 @@ export const productSlice = createSlice({
       state.loading = false;
       // state.products = action.payload ? action.payload : state.products;
       state.products = action.payload;
-      state.error = '';
     });
     builder.addCase(fetchProductByName.rejected, (state, action) => {
       state.loading = false;
+      state.products = [];
       state.error = action.payload as string;
     });
     //fetch all promotions
@@ -101,7 +102,6 @@ export const productSlice = createSlice({
     builder.addCase(fetchAllPromotions.fulfilled, (state, action) => {
       state.loading = false;
       state.discountedProducts = action.payload;
-      state.error = '';
     });
     builder.addCase(fetchAllPromotions.rejected, (state, action) => {
       state.loading = false;
@@ -109,5 +109,6 @@ export const productSlice = createSlice({
   },
 });
 
-export const { clearSelectedProduct, nextPage, clearPagination } = productSlice.actions;
+export const { clearSelectedProduct, nextPage, clearPagination, clearError } =
+  productSlice.actions;
 export const productReducer = productSlice.reducer;

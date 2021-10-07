@@ -13,7 +13,7 @@ interface SearchProductInput {
 }
 
 export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
-  const { limit, currentPage, error } = useAppSelector((state) => state.product);
+  const { limit, currentPage, error, loading } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
 
   const initialValues: SearchProductInput = {
@@ -41,6 +41,7 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
               },
             })
           );
+      helpers.setFieldValue('product', '');
     }, 1000),
     [dispatch]
   );
