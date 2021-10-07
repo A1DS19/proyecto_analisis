@@ -11,7 +11,7 @@ import { nextPage } from '../app/products/productSlice';
 interface IndexProps {}
 
 export const Index: React.FC<IndexProps> = (): JSX.Element => {
-  const { products, loading, limit, currentPage, totalPages } = useAppSelector(
+  const { products, loading, limit, currentPage, totalPages, error } = useAppSelector(
     (state) => state.product
   );
   const [filter, setFilter] = React.useState('');
@@ -54,9 +54,18 @@ export const Index: React.FC<IndexProps> = (): JSX.Element => {
         <ProductPromotions filter={filter} />
       </Box>
       <Box mb={10}>
-        <ProductList products={products} loading={loading} />
+        {!error ? (
+          <ProductList products={products} loading={loading} />
+        ) : (
+          <Box display='flex' alignItems='center' justifyContent='center'>
+            <Alert status='warning' borderRadius='lg' maxW='30%'>
+              <AlertIcon />
+              {error}
+            </Alert>
+          </Box>
+        )}
       </Box>
-      <Center my={5}>{renderPaginationState()}</Center>
+      <Center my={5}>{!error && renderPaginationState()}</Center>
     </React.Fragment>
   );
 };

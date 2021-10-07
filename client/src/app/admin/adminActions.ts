@@ -42,7 +42,7 @@ export const fetchProduct = createAsyncThunk(
       callback && callback();
       return data;
     } catch (err: any) {
-      rejectWithValue(err.message);
+      return rejectWithValue(err.response.data.err);
     }
   }
 );

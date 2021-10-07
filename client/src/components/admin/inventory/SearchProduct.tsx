@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Input, Spinner } from '@chakra-ui/react';
-import { useAppDispatch } from '../../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { fetchProduct, fetchProducts } from '../../../app/admin/adminActions';
 import debounce from 'lodash.debounce';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
@@ -12,6 +12,7 @@ interface SearchProductInput {
 }
 
 export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
+  const { error } = useAppSelector((state) => state.admin);
   const dispatch = useAppDispatch();
 
   const initialValues: SearchProductInput = {
@@ -70,7 +71,7 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
                   placeholder='Buscar producto'
                   focusBorderColor='gray.500'
                 />
-                {props.isSubmitting && <Spinner margin='auto 0' ml={2} />}
+                {!error && props.isSubmitting && <Spinner margin='auto 0' ml={2} />}
               </Box>
             </Form>
           );

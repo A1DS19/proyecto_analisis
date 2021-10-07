@@ -22,7 +22,7 @@ export const fetchProducts = createAsyncThunk(
       callback && callback();
       return data;
     } catch (err: any) {
-      rejectWithValue(err.message);
+      return rejectWithValue(err.response.data.err);
     }
   }
 );
@@ -34,7 +34,7 @@ export const fetchProduct = createAsyncThunk(
       const { data } = await api.get(`/products/id/${id}`);
       return data;
     } catch (err: any) {
-      rejectWithValue(err.message);
+      return rejectWithValue(err.response.data.err);
     }
   }
 );
@@ -50,7 +50,7 @@ export const fetchProductByName = createAsyncThunk(
       callback && callback();
       return data;
     } catch (err: any) {
-      rejectWithValue(err.message);
+      return rejectWithValue(err.response.data.err);
     }
   }
 );

@@ -13,7 +13,7 @@ interface SearchProductInput {
 }
 
 export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
-  const { limit, currentPage } = useAppSelector((state) => state.product);
+  const { limit, currentPage, error } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
 
   const initialValues: SearchProductInput = {
@@ -72,7 +72,7 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
                   placeholder='Buscar producto'
                   focusBorderColor='gray.500'
                 />
-                {props.isSubmitting && <Spinner margin='auto 0' ml={2} />}
+                {!error && props.isSubmitting && <Spinner margin='auto 0' ml={2} />}
               </Box>
             </Form>
           );

@@ -29,6 +29,7 @@ export const fetchProductsExtraReducer = (
     state.inventory = action.payload.products;
     state.currentPage = action.payload.currentPage;
     state.totalPages = action.payload.totalPages;
+    state.error = '';
   });
   builder.addCase(fetchProducts.rejected, (state, action) => {
     state.loading = false;
@@ -44,9 +45,11 @@ export const fetchProductExtraReducer = (
   builder.addCase(fetchProduct.fulfilled, (state, action) => {
     state.loading = false;
     state.inventory = action.payload;
+    state.error = '';
   });
   builder.addCase(fetchProduct.rejected, (state, action) => {
     state.loading = false;
+    state.error = action.payload as string;
   });
 };
 
@@ -59,6 +62,7 @@ export const fetchProductByIdExtraReducer = (
   builder.addCase(fetchProductById.fulfilled, (state, action) => {
     state.loading = false;
     state.product = action.payload;
+    state.error = '';
   });
   builder.addCase(fetchProductById.rejected, (state, action) => {
     state.loading = false;
@@ -73,6 +77,7 @@ export const fetchCategoriesExtraReducer = (
   builder.addCase(fetchCategories.fulfilled, (state, action) => {
     state.loading = false;
     state.categories = action.payload;
+    state.error = '';
   });
   builder.addCase(fetchCategories.rejected, (state, action) => {
     state.loading = false;

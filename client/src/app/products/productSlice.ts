@@ -16,6 +16,7 @@ interface ProductState {
   totalPages: number;
   currentPage: number;
   limit: number;
+  error: string;
 }
 
 const initialState: ProductState = {
@@ -26,6 +27,7 @@ const initialState: ProductState = {
   totalPages: 0,
   currentPage: 1,
   limit: 3,
+  error: '',
 };
 
 export const productSlice = createSlice({
@@ -56,6 +58,7 @@ export const productSlice = createSlice({
       state.products = state.products
         .concat(action.payload.products)
         .filter((v, i, a) => a.findIndex((t) => t.id === v.id) === i);
+      state.error = '';
 
       state.currentPage = toInteger(action.payload.currentPage);
       state.totalPages = action.payload.totalPages;
@@ -71,6 +74,7 @@ export const productSlice = createSlice({
     builder.addCase(fetchProduct.fulfilled, (state, action) => {
       state.loading = false;
       state.selectedProduct = action.payload;
+      state.error = '';
     });
     builder.addCase(fetchProduct.rejected, (state, action) => {
       state.loading = false;
@@ -83,9 +87,11 @@ export const productSlice = createSlice({
       state.loading = false;
       // state.products = action.payload ? action.payload : state.products;
       state.products = action.payload;
+      state.error = '';
     });
     builder.addCase(fetchProductByName.rejected, (state, action) => {
       state.loading = false;
+      state.error = action.payload as string;
     });
     //fetch all promotions
     //fetch product by name
@@ -95,6 +101,7 @@ export const productSlice = createSlice({
     builder.addCase(fetchAllPromotions.fulfilled, (state, action) => {
       state.loading = false;
       state.discountedProducts = action.payload;
+      state.error = '';
     });
     builder.addCase(fetchAllPromotions.rejected, (state, action) => {
       state.loading = false;
