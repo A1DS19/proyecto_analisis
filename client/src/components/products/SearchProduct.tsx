@@ -5,7 +5,6 @@ import { fetchProducts } from '../../app/products/productActions';
 import debounce from 'lodash.debounce';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import { fetchProductByName } from '../../app/products/productActions';
-import { clearPagination } from '../../app/products/productSlice';
 
 interface SearchProductProps {}
 
@@ -14,7 +13,7 @@ interface SearchProductInput {
 }
 
 export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
-  const { limit, currentPage, loading } = useAppSelector((state) => state.product);
+  const { limit, currentPage } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
 
   const initialValues: SearchProductInput = {
@@ -22,12 +21,26 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
   };
 
   const debouncedCallback = React.useCallback(
-    debounce((name: string) => {
-      dispatch(
-        fetchProductByName({
-          name,
-        })
-      );
+    debounce((name: string, helpers: FormikHelpers<SearchProductInput>) => {
+      !!name && name.length > 0
+        ? dispatch(
+            fetchProductByName({
+              name,
+              callback: () => {
+                helpers.setSubmitting(false);
+              },
+            })
+          )
+        : dispatch(
+            fetchProducts({
+              category: '',
+              page: currentPage,
+              limit,
+              callback: () => {
+                helpers.setSubmitting(false);
+              },
+            })
+          );
     }, 1000),
     [dispatch]
   );
@@ -40,12 +53,7 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
           values: SearchProductInput,
           helpers: FormikHelpers<SearchProductInput>
         ) => {
-          if (values.product === '') {
-            dispatch(clearPagination());
-            dispatch(fetchProducts({ category: '', page: currentPage, limit }));
-          } else {
-            debouncedCallback(values.product);
-          }
+          debouncedCallback(values.product, helpers);
         }}
       >
         {(props: FormikProps<SearchProductInput>) => {
@@ -55,16 +63,16 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
                 <Input
                   name='product'
                   value={props.values.product}
-                  onChange={(e) => {
+                  onChange={async (e) => {
                     props.handleChange(e);
-                    props.submitForm();
+                    await props.submitForm();
                   }}
                   onBlur={props.handleBlur}
                   size='md'
                   placeholder='Buscar producto'
                   focusBorderColor='gray.500'
                 />
-                {loading && <Spinner margin='auto 0' ml={2} />}
+                {props.isSubmitting && <Spinner margin='auto 0' ml={2} />}
               </Box>
             </Form>
           );

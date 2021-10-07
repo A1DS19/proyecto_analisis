@@ -1,4 +1,4 @@
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, Spinner } from '@chakra-ui/react';
 import React from 'react';
 import { fetchProducts } from '../../../app/admin/adminActions';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
@@ -19,24 +19,31 @@ export const InventoryIndex: React.FC<InventoryIndexProps> = (): JSX.Element => 
     dispatch(fetchProducts({ category: '', page: 0, limit: 10000 }));
   }, [dispatch]);
 
-  if (loading) return <FullSpinner />;
-
   return (
     <Box>
       <Box maxW='30%' my={3}>
         <SearchProduct />
       </Box>
-      <InventoryTable inventory={inventory} />
-      <Box my={4}>
-        <Button
-          onClick={() => history.push('/admin/inventory')}
-          leftIcon={<AddIcon />}
-          color='orange.300'
-          variant='outline'
-        >
-          Agregar
-        </Button>
-      </Box>
+
+      {!loading ? (
+        <React.Fragment>
+          <InventoryTable inventory={inventory} />
+          <Box my={4}>
+            <Button
+              onClick={() => history.push('/admin/inventory')}
+              leftIcon={<AddIcon />}
+              color='orange.300'
+              variant='outline'
+            >
+              Agregar
+            </Button>
+          </Box>
+        </React.Fragment>
+      ) : (
+        <Box display='flex' marginY={5} alignItems='center' justifyContent='center'>
+          <Spinner size='lg' />
+        </Box>
+      )}
     </Box>
   );
 };

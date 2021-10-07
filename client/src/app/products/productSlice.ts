@@ -81,7 +81,8 @@ export const productSlice = createSlice({
     });
     builder.addCase(fetchProductByName.fulfilled, (state, action) => {
       state.loading = false;
-      state.products = action.payload ? action.payload : state.products;
+      // state.products = action.payload ? action.payload : state.products;
+      state.products = action.payload;
     });
     builder.addCase(fetchProductByName.rejected, (state, action) => {
       state.loading = false;

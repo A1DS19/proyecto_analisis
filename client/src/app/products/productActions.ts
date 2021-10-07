@@ -4,7 +4,12 @@ import { api } from '../api';
 export const fetchProducts = createAsyncThunk(
   'product/fecthProducts',
   async (
-    { category, page, limit }: { category: string; page: number; limit: number },
+    {
+      category,
+      page,
+      limit,
+      callback,
+    }: { category: string; page: number; limit: number; callback?: () => void },
     { rejectWithValue }
   ) => {
     try {
@@ -13,6 +18,8 @@ export const fetchProducts = createAsyncThunk(
           ? `/products?category=${category}&page=${page}&limit=${limit}`
           : `/products?page=${page}&limit=${limit}`
       );
+
+      callback && callback();
       return data;
     } catch (err: any) {
       rejectWithValue(err.message);
@@ -33,13 +40,13 @@ export const fetchProduct = createAsyncThunk(
 );
 
 export const fetchProductByName = createAsyncThunk(
-  'admin/fetchProduct',
+  'product/fetchProductByName',
   async (
     { name, callback }: { name: string; callback?: () => void },
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.get(`/products/name/${name}`);
+      const { data } = await api.get(`/products/name/${name.trim()}`);
       callback && callback();
       return data;
     } catch (err: any) {

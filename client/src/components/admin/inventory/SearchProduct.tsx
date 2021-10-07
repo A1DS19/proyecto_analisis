@@ -12,7 +12,6 @@ interface SearchProductInput {
 }
 
 export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
-  const [loading, setLoading] = React.useState(false);
   const dispatch = useAppDispatch();
 
   const initialValues: SearchProductInput = {
@@ -20,15 +19,26 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
   };
 
   const debouncedCallback = React.useCallback(
-    debounce((name: string) => {
-      dispatch(
-        fetchProduct({
-          name,
-          callback: () => {
-            setLoading(false);
-          },
-        })
-      );
+    debounce((name: string, helpers: FormikHelpers<SearchProductInput>) => {
+      !!name && name.length > 0
+        ? dispatch(
+            fetchProduct({
+              name,
+              callback: () => {
+                helpers.setSubmitting(false);
+              },
+            })
+          )
+        : dispatch(
+            fetchProducts({
+              category: '',
+              page: 0,
+              limit: 1000,
+              callback: () => {
+                helpers.setSubmitting(false);
+              },
+            })
+          );
     }, 1000),
     [dispatch]
   );
@@ -41,13 +51,7 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
           values: SearchProductInput,
           helpers: FormikHelpers<SearchProductInput>
         ) => {
-          setLoading(true);
-
-          if (values.product === '') {
-            dispatch(fetchProducts({ category: '', page: 0, limit: 1000 }));
-          } else {
-            debouncedCallback(values.product);
-          }
+          debouncedCallback(values.product, helpers);
         }}
       >
         {(props: FormikProps<SearchProductInput>) => {
@@ -66,7 +70,7 @@ export const SearchProduct: React.FC<SearchProductProps> = (): JSX.Element => {
                   placeholder='Buscar producto'
                   focusBorderColor='gray.500'
                 />
-                {loading && <Spinner margin='auto 0' ml={2} />}
+                {props.isSubmitting && <Spinner margin='auto 0' ml={2} />}
               </Box>
             </Form>
           );
