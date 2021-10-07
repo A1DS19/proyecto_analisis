@@ -5,7 +5,7 @@ import { ProductList } from './products/ProductList';
 import { ProductFilter } from './products/ProductFilter';
 import { Alert, AlertIcon, Box, Button, Center, Spinner } from '@chakra-ui/react';
 import { ProductPromotions } from './products/discountedProducts/ProductPromotions';
-import { AddIcon } from '@chakra-ui/icons';
+import { AddIcon, ArrowBackIcon, ArrowLeftIcon } from '@chakra-ui/icons';
 import { nextPage } from '../app/products/productSlice';
 
 interface IndexProps {}
@@ -57,12 +57,28 @@ export const Index: React.FC<IndexProps> = (): JSX.Element => {
         {!error || products.length > 0 ? (
           <ProductList products={products} loading={loading} />
         ) : (
-          <Box display='flex' alignItems='center' justifyContent='center'>
-            <Alert status='warning' borderRadius='lg' maxW='30%'>
-              <AlertIcon />
-              {error}
-            </Alert>
-          </Box>
+          <React.Fragment>
+            <Box display='flex' alignItems='center' justifyContent='center'>
+              <Alert status='warning' borderRadius='lg' maxW='30%'>
+                <AlertIcon />
+                {error}
+              </Alert>
+            </Box>
+            <Box display='flex' alignItems='center' justifyContent='center'>
+              <Button
+                my={1}
+                size='md'
+                leftIcon={<ArrowBackIcon />}
+                onClick={() =>
+                  dispatch(
+                    fetchProducts({ category: filter, page: currentPage, limit: limit })
+                  )
+                }
+              >
+                Volver
+              </Button>
+            </Box>
+          </React.Fragment>
         )}
       </Box>
       <Center my={5}>{(!error || products.length > 0) && renderPaginationState()}</Center>
