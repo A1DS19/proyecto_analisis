@@ -93,7 +93,7 @@ module.exports.delete_product = async function (req, res) {
       return res.status(404).json({ err: 'Producto no existe' });
     }
 
-    await Product.findOneAndDelete({ id });
+    await Product.findByIdAndDelete(id);
 
     res.status(202).json(true);
   } catch (err) {
