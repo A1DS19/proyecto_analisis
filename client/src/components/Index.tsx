@@ -5,7 +5,7 @@ import { ProductList } from './products/ProductList';
 import { ProductFilter } from './products/ProductFilter';
 import { Alert, AlertIcon, Box, Button, Center, Spinner } from '@chakra-ui/react';
 import { ProductPromotions } from './products/discountedProducts/ProductPromotions';
-import { AddIcon, ArrowBackIcon, ArrowLeftIcon } from '@chakra-ui/icons';
+import { AddIcon, ArrowBackIcon } from '@chakra-ui/icons';
 import { nextPage } from '../app/products/productSlice';
 
 interface IndexProps {}
