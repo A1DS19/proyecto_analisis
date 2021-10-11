@@ -81,7 +81,7 @@ export const Index: React.FC<IndexProps> = (): JSX.Element => {
           </React.Fragment>
         )}
       </Box>
-      <Center my={5}>{(!error || products.length > 0) && renderPaginationState()}</Center>
+      <Center my={5}>{products.length > 1 && renderPaginationState()}</Center>
     </React.Fragment>
   );
 };

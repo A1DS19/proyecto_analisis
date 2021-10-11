@@ -15,8 +15,8 @@ export const ProductPromotions: React.FC<ProductPromotionsProps> = ({
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
-    dispatch(fetchAllPromotions());
-  }, [dispatch]);
+    dispatch(fetchAllPromotions({ category: filter }));
+  }, [dispatch, filter]);
 
   return (
     <React.Fragment>

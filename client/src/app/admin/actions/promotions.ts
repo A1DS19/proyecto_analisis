@@ -50,7 +50,7 @@ export const fetchAllPromotions = createAsyncThunk(
   'admin/fetchAllPromotions',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.get('/products/promotions');
+      const { data } = await api.get('/products/promotions/all');
       return data;
     } catch (err: any) {
       return rejectWithValue(err.response.data.err);

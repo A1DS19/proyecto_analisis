@@ -93,6 +93,10 @@ module.exports.delete_product = async function (req, res) {
       return res.status(404).json({ err: 'Producto no existe' });
     }
 
+    product.images.forEach(async (img) => {
+      await deleteImage(img.public_id);
+    });
+
     await Product.findByIdAndDelete(id);
 
     res.status(202).json(true);
@@ -118,8 +122,15 @@ module.exports.create_product = async function (req, res) {
 };
 
 module.exports.get_all_promotions = async function (req, res) {
+  const { category } = req.params;
+
   try {
-    const promotions = await Product.find({ isDiscounted: true });
+    let promotions;
+    if (category !== 'all') {
+      promotions = await Product.find({ $and: [{ isDiscounted: true }, { category }] });
+    } else {
+      promotions = await Product.find({ isDiscounted: true });
+    }
 
     if (!promotions) {
       return res.status(404).json({ err: 'No hay promociones' });

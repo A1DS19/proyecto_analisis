@@ -57,9 +57,14 @@ export const fetchProductByName = createAsyncThunk(
 
 export const fetchAllPromotions = createAsyncThunk(
   'product/fetchAllPromotions',
-  async (_, { rejectWithValue }) => {
+  async ({ category }: { category: string }, { rejectWithValue }) => {
+    console.log(category);
+
     try {
-      const { data } = await api.get('/products/promotions');
+      const { data } = await api.get(
+        category ? `/products/promotions/${category}` : `/products/promotions/all`
+      );
+
       return data;
     } catch (err: any) {
       return rejectWithValue(err.response.data.err);
