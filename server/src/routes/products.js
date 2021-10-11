@@ -16,7 +16,7 @@ const {
 route.get('/', get_products);
 route.get('/id/:id', get_product_by_id);
 route.get('/name/:name', get_product_by_name);
-route.get('/promotions', get_all_promotions);
+route.get('/promotions/:category', get_all_promotions);
 route.put(
   '/promotions/id/:id',
   passport.authenticate('isAdmin', { session: false }),
