@@ -207,16 +207,17 @@ export const deleteCategory = createAsyncThunk(
 //USERS
 export const fetchUsers = createAsyncThunk(
   'admin/fetchUsers',
-  async (_, { rejectWithValue }) => {
+  async ({ callback }: { callback?: () => void }, { rejectWithValue }) => {
     try {
-      const { data } = await api.get('/user', {
+      const { data } = await api.get('/user/users', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
+      callback && callback();
       return data;
     } catch (err: any) {
-      rejectWithValue(err.message);
+      rejectWithValue(err.response.data.err);
     }
   }
 );
@@ -225,14 +226,14 @@ export const fetchUserById = createAsyncThunk(
   'admin/fetchUserbyId',
   async ({ id }: { id: string }, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(`/user/${id}`, {
+      const { data } = await api.get(`/user/user/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
       return data;
     } catch (err: any) {
-      rejectWithValue(err.message);
+      rejectWithValue(err.response.data.err);
     }
   }
 );
@@ -244,7 +245,7 @@ export const createUser = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.post('/user', input, {
+      const { data } = await api.post('/user/user', input, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -253,7 +254,7 @@ export const createUser = createAsyncThunk(
 
       return data;
     } catch (err: any) {
-      rejectWithValue(err.message);
+      rejectWithValue(err.response.data.err);
     }
   }
 );
@@ -269,8 +270,7 @@ export const updateUser = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      delay(200);
-      const { data } = await api.put(`/user/${id}`, input, {
+      const { data } = await api.put(`/user/user/${id}`, input, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -278,7 +278,7 @@ export const updateUser = createAsyncThunk(
       callback && callback();
       return data;
     } catch (err: any) {
-      rejectWithValue(err.message);
+      rejectWithValue(err.response.data.err);
     }
   }
 );
@@ -287,7 +287,7 @@ export const deleteUser = createAsyncThunk(
   'admin/deleteUser',
   async ({ id, callback }: { id: string; callback: () => void }, { rejectWithValue }) => {
     try {
-      await api.delete(`/user/${id}`, {
+      await api.delete(`/user/user/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -295,7 +295,7 @@ export const deleteUser = createAsyncThunk(
       callback && callback();
       return id;
     } catch (err: any) {
-      rejectWithValue(err.message);
+      rejectWithValue(err.response.data.err);
     }
   }
 );
@@ -307,7 +307,7 @@ export const fetchUserByIdNumber = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.get(`/user?idNumber=${idNumber}`, {
+      const { data } = await api.get(`/user/user/idNumber/${idNumber}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -315,7 +315,7 @@ export const fetchUserByIdNumber = createAsyncThunk(
       callback && callback();
       return data;
     } catch (err: any) {
-      rejectWithValue(err.message);
+      rejectWithValue(err.response.data.err);
     }
   }
 );
@@ -343,7 +343,7 @@ export const fetchOrders = createAsyncThunk(
 
       return data;
     } catch (err: any) {
-      rejectWithValue(err.message);
+      rejectWithValue(err.response.data.err);
     }
   }
 );
@@ -359,7 +359,7 @@ export const fetchOrderById = createAsyncThunk(
       callback && callback();
       return data;
     } catch (err: any) {
-      rejectWithValue(err.message);
+      rejectWithValue(err.response.data.err);
     }
   }
 );
@@ -379,7 +379,7 @@ export const updateOrderState = createAsyncThunk(
       callback && callback();
       return data;
     } catch (err: any) {
-      rejectWithValue(err.message);
+      rejectWithValue(err.response.data.err);
     }
   }
 );

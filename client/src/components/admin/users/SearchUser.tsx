@@ -21,14 +21,23 @@ export const SearchUser: React.FC<SearchUserProps> = (): JSX.Element => {
 
   const debouncedCallback = React.useCallback(
     debounce((idNumber: string) => {
-      dispatch(
-        fetchUserByIdNumber({
-          idNumber,
-          callback: () => {
-            setLoading(false);
-          },
-        })
-      );
+      setLoading(true);
+      !!idNumber && idNumber.length > 0
+        ? dispatch(
+            fetchUserByIdNumber({
+              idNumber,
+              callback: () => {
+                setLoading(false);
+              },
+            })
+          )
+        : dispatch(
+            fetchUsers({
+              callback: () => {
+                setLoading(false);
+              },
+            })
+          );
     }, 1000),
     [dispatch]
   );
@@ -38,12 +47,7 @@ export const SearchUser: React.FC<SearchUserProps> = (): JSX.Element => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values: SearchUserInput, helpers: FormikHelpers<SearchUserInput>) => {
-          setLoading(true);
           debouncedCallback(values.idNumber);
-
-          if (values.idNumber === '') {
-            dispatch(fetchUsers());
-          }
         }}
       >
         {(props: FormikProps<SearchUserInput>) => {

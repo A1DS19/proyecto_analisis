@@ -39,7 +39,7 @@ export const AdminIndex: React.FC<AdminIndexProps> = (): JSX.Element => {
 
         <TabPanel>{/* <OrdersIndex /> */}</TabPanel>
 
-        <TabPanel>{/* <UsersIndex /> */}</TabPanel>
+        <TabPanel>{<UsersIndex />}</TabPanel>
       </TabPanels>
     </Tabs>
   );

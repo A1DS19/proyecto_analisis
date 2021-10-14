@@ -15,7 +15,7 @@ export const UsersIndex: React.FC<UsersIndexProps> = (): JSX.Element => {
   const { users } = useAppSelector((state) => state.admin);
 
   React.useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchUsers({ callback: () => {} }));
   }, [dispatch]);
 
   return (

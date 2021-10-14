@@ -21,8 +21,8 @@ export const fetchOrders = createAsyncThunk(
       const { data } = await api.get(`/order?userId=${userId}`);
       callback && callback();
       return data;
-    } catch (err) {
-      rejectWithValue(err.message);
+    } catch (err: any) {
+      rejectWithValue(err.response.data.err);
     }
   }
 );
@@ -35,8 +35,8 @@ export const createOrder = createAsyncThunk(
       callback && callback();
 
       return data;
-    } catch (err) {
-      rejectWithValue(err.message);
+    } catch (err: any) {
+      rejectWithValue(err.response.data.err);
     }
   }
 );
