@@ -5,6 +5,12 @@ const {
   update_user_data,
   request_password_reset,
   reset_password,
+  get_users,
+  get_user,
+  create_user,
+  update_user,
+  delete_user,
+  fetch_user_by_idNumber,
 } = require('../controllers/users');
 
 route.put(
@@ -12,9 +18,6 @@ route.put(
   passport.authenticate('isAuth', { session: false }),
   update_user_data
 );
-
-route.post('/password-reset', request_password_reset);
-route.post('/reset-password', reset_password);
 
 route.post('/register', (req, res, next) => {
   passport.authenticate('register', async (err, user) => {
@@ -68,6 +71,32 @@ route.get(
 
     res.json({ user: req.user });
   }
+);
+
+route.post('/password-reset', request_password_reset);
+route.post('/reset-password', reset_password);
+
+//get all users
+route.get('/users', passport.authenticate('isAuth', { session: false }), get_users);
+
+//get user by id
+route.get('/user/:id', passport.authenticate('isAuth', { session: false }), get_user);
+//get user by idNumber
+route.get(
+  '/user/idNumber/:idNumber',
+  passport.authenticate('isAuth', { session: false }),
+  fetch_user_by_idNumber
+);
+
+//create user
+route.post('/user', passport.authenticate('isAuth', { session: false }), create_user);
+//update user
+route.put('/user/:id', passport.authenticate('isAuth', { session: false }), update_user);
+//delete user
+route.delete(
+  '/user/:id',
+  passport.authenticate('isAuth', { session: false }),
+  delete_user
 );
 
 module.exports = { route };

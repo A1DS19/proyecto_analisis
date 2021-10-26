@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+
+
+<body style="background-color: #2D3748;
+    text-align: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;">
+  <div>
+    <h1>Nueva contraseña para <%= email %>
+    </h1>
+    <a style="background-color: #718096;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.92);
+    margin-top: 20px;" class="link" role="button" href="http://localhost:3000/auth/forgot_password/<%= token %>">Haga
+      click aqui
+      para resetear
+      su
+      contraseña</a>
+  </div>
+  <div style="margin-top: 30px;
+    font-style: italic;">
+    <p>Tiene 24 horas para resetear la contraseña, al pasar este tiempo debera solicitarlo de nuevo.</p>
+    <p>Su contraseña actual es <%= password %>, favor cambiarla</p>
+  </div>
+</body>
+
+</html>

@@ -138,3 +138,129 @@ module.exports.reset_password = async function (req, res) {
     server_error(err, res);
   }
 };
+
+module.exports.get_users = async function (req, res) {
+  try {
+    const users = await User.find().select('-password');
+
+    if (!users) {
+      return res.status(404).json({ err: 'No hay usuarios registrados' });
+    }
+
+    res.json(users);
+  } catch (err) {
+    server_error(err, res);
+  }
+};
+
+module.exports.get_user = async function (req, res) {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ err: 'Usuario no existe' });
+    }
+
+    res.json(user);
+  } catch (err) {
+    server_error(err, res);
+  }
+};
+
+module.exports.create_user = async function (req, res) {
+  try {
+    const { email, idNumber } = req.body;
+    const user_with_email = await User.findOne({ email });
+
+    if (user_with_email) {
+      return res.status(404).json({ err: `Email ${email} ya existe` });
+    }
+
+    const user_with_idNumber = await User.findOne({ idNumber });
+
+    if (user_with_idNumber) {
+      return res.status(404).json({ err: `Cedula ${idNumber} ya existe` });
+    }
+
+    //crear nuevo usuario con contraseña generica
+    const defaultPassword = 'abc123';
+    const password = await bcrypt.hash(defaultPassword, 10);
+    const body = { ...req.body, password };
+
+    const newUser = await User.create(body);
+
+    const newUserEJS = path.join(__dirname, '..', 'views', 'newUser.ejs');
+    const newUserFile = fs.readFileSync(newUserEJS, 'utf-8');
+    const newUserCompiled = ejs.compile(newUserFile);
+
+    const newUser2 = await User.findByIdAndUpdate(
+      newUser.id,
+      {
+        resetPasswordToken: uuidv4(),
+        resetPasswordTokenExpiryDate: new Date(Date.now() + 60 * 60 * 24 * 1000),
+      },
+      { new: true }
+    );
+
+    const newUserHtml = newUserCompiled({
+      token: newUser2.resetPasswordToken,
+      email: newUser2.email,
+      password: defaultPassword,
+    });
+
+    await sendEmail(email, 'Nueva cuenta Dragon Rojo', newUserHtml);
+
+    res.json(newUser);
+  } catch (err) {
+    server_error(err, res);
+  }
+};
+
+module.exports.update_user = async function (req, res) {
+  try {
+    const { id } = req.params;
+    const body = req.body;
+    const user = await User.findByIdAndUpdate(id, body, { new: true });
+
+    if (!user) {
+      return res.status(404).json({ err: 'Usuario no existe' });
+    }
+
+    res.json(user);
+  } catch (err) {
+    server_error(err, res);
+  }
+};
+
+module.exports.delete_user = async function (req, res) {
+  try {
+    const { id } = req.params;
+    const user = await User.findByIdAndDelete(id);
+
+    if (!user) {
+      return res.status(404).json({ err: 'No se pudo eliminar a usuario' });
+    }
+
+    res.json(true);
+  } catch (err) {
+    server_error(err, res);
+  }
+};
+
+module.exports.fetch_user_by_idNumber = async function (req, res) {
+  try {
+    const { idNumber } = req.params;
+    const user = await User.findOne({
+      idNumber: { $regex: new RegExp(idNumber), $options: 'i' },
+    }).select('-password');
+
+    if (!user) {
+      return res.json([]);
+    }
+
+    res.json([user]);
+  } catch (err) {
+    server_error(err, res);
+  }
+};
