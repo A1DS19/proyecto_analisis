@@ -8,7 +8,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-const PORT = 5000 || process.env.PORT;
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 (async () => {
