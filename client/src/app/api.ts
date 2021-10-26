@@ -9,5 +9,8 @@ export const delay = (delay: number) => {
 };
 
 export const api = axios.create({
-  baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : '',
+  baseURL:
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:5000'
+      : 'https://morning-cliffs-24291.herokuapp.com/',
 });
