@@ -323,24 +323,27 @@ export const fetchUserByIdNumber = createAsyncThunk(
 //ORDERS
 export const fetchOrders = createAsyncThunk(
   'admin/fetchOrders',
-  async ({ filter }: { filter: filter_order }, { rejectWithValue }) => {
+  async (
+    { filter, callback }: { filter: filter_order; callback?: () => void },
+    { rejectWithValue }
+  ) => {
     try {
       const { data } =
         filter === 'todas'
-          ? await api.get(`/order`, {
+          ? await api.get(`/order/admin/`, {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
               },
             })
           : await api.get(
-              `/order?isDelivered=${filter === 'entregada' ? 'true' : 'false'}`,
+              `/order/admin/isDelivered/${filter === 'entregada' ? true : false}`,
               {
                 headers: {
                   Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
               }
             );
-
+      callback && callback();
       return data;
     } catch (err: any) {
       rejectWithValue(err.response.data.err);
@@ -355,7 +358,11 @@ export const fetchOrderById = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.get(`/order?id=${id}`);
+      const { data } = await api.get(`/order/admin/id/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
       return data;
     } catch (err: any) {
@@ -371,7 +378,9 @@ export const updateOrderState = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await api.put(`/order/${id}`, input, {
+      input.userId = (input as any).userId.id;
+
+      const { data } = await api.put(`/order/admin/${id}`, input, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

@@ -18,7 +18,11 @@ export const fetchOrders = createAsyncThunk(
   'user/fetchOrders',
   async ({ userId, callback }: FetchCurrentUserOrders, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(`/order?userId=${userId}`);
+      const { data } = await api.get(`/order?userId=${userId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
       return data;
     } catch (err: any) {
@@ -30,8 +34,14 @@ export const fetchOrders = createAsyncThunk(
 export const createOrder = createAsyncThunk(
   'user/createOrder',
   async ({ body, callback }: CreateOrderInput, { rejectWithValue }) => {
+    console.log(body);
+
     try {
-      const { data } = await api.post('/order', body);
+      const { data } = await api.post('/order/', body, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       callback && callback();
 
       return data;
