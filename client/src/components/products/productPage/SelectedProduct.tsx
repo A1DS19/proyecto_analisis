@@ -47,6 +47,11 @@ export const SelectedProduct: React.FC<SelectedProductProps> = (): JSX.Element =
     const input: addCartActionInput = {
       product: { ...selectedProduct, selectedQuantity: selectedItemQuantity } as CartItem,
     };
+
+    if (input.product.isDiscounted) {
+      input.product.price = input.product.discountedPrice;
+    }
+
     dispatch(addCartItem(input));
   };
 

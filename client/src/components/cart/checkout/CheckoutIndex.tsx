@@ -33,19 +33,22 @@ export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
   const [isFormValid, setIsFormValid] = React.useState(true);
   const [submitting, setSubmitting] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const total = (products as []).reduce((acc, curr: CartItem) => {
     return (acc += curr.price * curr.selectedQuantity);
   }, 0);
 
   const initialValues: Partial<Order> = {
     userId: user?.id!,
-    total: storePickup ? total + envio : total,
+    total: !storePickup ? total + envio : total,
     products: products,
     paymentMethod: 'SINPE',
     storePickup: JSON.stringify(storePickup),
-    isDelivered: 'false',
+    isDelivered: JSON.stringify(false),
     address: null,
   };
+
+  console.log(initialValues);
 
   return (
     <Container maxW='container.lg'>
@@ -58,6 +61,7 @@ export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
         initialValues={initialValues as Order}
         onSubmit={(values: Order, helpers: FormikHelpers<Order>) => {
           setSubmitting(true);
+
           dispatch(
             createOrder({
               body: values,

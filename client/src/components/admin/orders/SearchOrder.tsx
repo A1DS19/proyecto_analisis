@@ -21,14 +21,25 @@ export const SearchOrder: React.FC<SearchOrderProps> = (): JSX.Element => {
 
   const debouncedCallback = React.useCallback(
     debounce((id: string) => {
-      dispatch(
-        fetchOrderById({
-          id,
-          callback: () => {
-            setLoading(false);
-          },
-        })
-      );
+      setLoading(true);
+
+      !!id && id.length > 0
+        ? dispatch(
+            fetchOrderById({
+              id,
+              callback: () => {
+                setLoading(false);
+              },
+            })
+          )
+        : dispatch(
+            fetchOrders({
+              filter: 'todas',
+              callback: () => {
+                setLoading(false);
+              },
+            })
+          );
     }, 1000),
     [dispatch]
   );
@@ -41,12 +52,7 @@ export const SearchOrder: React.FC<SearchOrderProps> = (): JSX.Element => {
           values: SearchOrderInput,
           helpers: FormikHelpers<SearchOrderInput>
         ) => {
-          setLoading(true);
           debouncedCallback(values.id);
-
-          if (values.id === '') {
-            dispatch(fetchOrders({ filter: 'todas' }));
-          }
         }}
       >
         {(props: FormikProps<SearchOrderInput>) => {

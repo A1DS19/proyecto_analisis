@@ -57,13 +57,11 @@ export const ShippingAddress: React.FC<ShippingAddressProps> = ({
         <RadioGroup
           onChange={(e) => {
             setStorePickup(JSON.parse(e));
-            props.setFieldValue('storePickup', e);
+            props.setFieldValue('storePickup', !e);
 
             if (JSON.parse(props.values.storePickup)) {
               props.setFieldValue('address', null);
             }
-
-            console.log(storePickup);
           }}
           value={JSON.stringify(storePickup)}
         >

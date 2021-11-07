@@ -11,7 +11,7 @@ export const OrderIndex: React.FC<OrderIndexProps> = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
-    //dispatch(fetchOrders({ userId: user?.id! }));
+    dispatch(fetchOrders({ userId: user?.id! }));
   }, [dispatch, user?.id]);
 
   if (loading) {

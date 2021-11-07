@@ -40,9 +40,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order }): JSX.Element => {
         </Box>
 
         <Box>
-          <Text>
-            {JSON.parse(order.storePickup) ? 'Recoje en tienda' : 'Envio a domicilio'}
-          </Text>
+          <Text>{order.storePickup ? 'Recoje en tienda' : 'Envio a domicilio'}</Text>
           <CheckIcon color='green' fontSize='2xl' />
         </Box>
 

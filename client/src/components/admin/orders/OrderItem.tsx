@@ -86,31 +86,32 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order }): JSX.Element => {
   };
 
   const renderUserDetails = (): JSX.Element => {
+    const { userId } = order;
     return (
       <React.Fragment>
         <Heading size='md'>Detalles de usuario</Heading>
         <Flex my={1}>
           <Heading size='sm'>Nombre:</Heading>
           <Text mt='-0.5' mx='1'>
-            placeholder
+            {(userId as any).name}
           </Text>
         </Flex>
         <Flex my={1}>
           <Heading size='sm'>Apellido:</Heading>
           <Text mt='-0.5' mx='1'>
-            placeholder
+            {(userId as any).lastName}
           </Text>
         </Flex>
         <Flex my={1}>
           <Heading size='sm'>Cedula:</Heading>
           <Text mt='-0.5' mx='1'>
-            placeholder
+            {(userId as any).idNumber}
           </Text>
         </Flex>
         <Flex my={1}>
           <Heading size='sm'>Numero telefonico:</Heading>
           <Text mt='-0.5' mx='1'>
-            placeholder
+            {(userId as any).phoneNumber}
           </Text>
         </Flex>
       </React.Fragment>

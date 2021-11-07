@@ -36,6 +36,10 @@ const ProductSchema = new mongoose.Schema(
       required: true,
       type: String,
     },
+    selectedQuantity: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
@@ -43,4 +47,4 @@ const ProductSchema = new mongoose.Schema(
 );
 
 const Product = mongoose.model('Product', ProductSchema);
-module.exports = { Product };
+module.exports = { Product, ProductSchema };
