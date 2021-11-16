@@ -50,7 +50,7 @@ function App() {
           <Route exact path='/user/:userId/orders' component={OrderIndex} />
           <Route exact path='/admin' component={AdminIndex} />
           <Route exact path='/auth/forgot_password' component={ForgotPassword} />
-          <Route exact path='/auth/forgot_password/:token' component={ResetPassword} />
+          <Route exact path='/auth/reset_password/:token' component={ResetPassword} />
           <Route
             exact
             path={['/admin/inventory/:id', '/admin/inventory']}
