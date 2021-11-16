@@ -5,6 +5,7 @@
 client:
 yarn build
 netlify deploy --prod
+directorio: ./build
 
 server:
 git subtree push --prefix server heroku main;

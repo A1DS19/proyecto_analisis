@@ -207,6 +207,10 @@ module.exports.create_user = async function (req, res) {
       token: newUser2.resetPasswordToken,
       email: newUser2.email,
       password: defaultPassword,
+      url:
+        process.env === 'production'
+          ? 'https://dragon-rojo.netlify.app'
+          : 'http://localhost:3000',
     });
 
     await sendEmail(email, 'Nueva cuenta Dragon Rojo', newUserHtml);
