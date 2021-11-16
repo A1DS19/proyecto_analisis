@@ -95,7 +95,13 @@ module.exports.request_password_reset = async function (req, res) {
     user.resetPasswordTokenExpiryDate = new Date(Date.now() + 60 * 60 * 24 * 1000);
     await user.save();
 
-    const resetPasswordHtml = resetPasswordCompiled({ token: user.resetPasswordToken });
+    const resetPasswordHtml = resetPasswordCompiled({
+      token: user.resetPasswordToken,
+      url:
+        process.env === 'production'
+          ? 'https://dragon-rojo.netlify.app'
+          : 'http://localhost:3000',
+    });
 
     await sendEmail(email, 'RESET CONTRASEÑA', resetPasswordHtml);
 
