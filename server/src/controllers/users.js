@@ -98,7 +98,7 @@ module.exports.request_password_reset = async function (req, res) {
     const resetPasswordHtml = resetPasswordCompiled({
       token: user.resetPasswordToken,
       url:
-        process.env === 'production'
+        process.env.NODE_ENV === 'production'
           ? 'https://dragon-rojo.netlify.app'
           : 'http://localhost:3000',
     });
@@ -214,7 +214,7 @@ module.exports.create_user = async function (req, res) {
       email: newUser2.email,
       password: defaultPassword,
       url:
-        process.env === 'production'
+        process.env.NODE_ENV === 'production'
           ? 'https://dragon-rojo.netlify.app'
           : 'http://localhost:3000',
     });
