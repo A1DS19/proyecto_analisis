@@ -177,7 +177,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order }): JSX.Element => {
           </Box>
 
           <Box>
-            <Text>Orden # {order.id}</Text>
+            <Text>Orden # {order.orderId}</Text>
           </Box>
         </Box>
         <Divider />
@@ -205,7 +205,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order }): JSX.Element => {
       </Box>
       <AlertModal
         header='Actualizar order'
-        message={`Esta seguro que actualizar estado de orden #${selectedOrder?.id} a entregada?`}
+        message={`Esta seguro que actualizar estado de orden #${selectedOrder?.orderId} a entregada?`}
         mainActionTxt='Actualizar'
         mainAction={updateOrderState}
         cancelRef={cancelRef}

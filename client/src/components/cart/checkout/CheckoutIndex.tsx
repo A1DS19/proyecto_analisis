@@ -48,8 +48,6 @@ export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
     address: null,
   };
 
-  console.log(initialValues);
-
   return (
     <Container maxW='container.lg'>
       <Center mb={3}>

@@ -3,6 +3,7 @@ import { productReducer } from './products/productSlice';
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { userReducer } from './user/userSlice';
 import { adminReducer } from './admin/adminSlice';
+import { statisticsReducer } from './admin/statistics/statisticsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     product: productReducer,
     cart: cartReducer,
     admin: adminReducer,
+    statistics: statisticsReducer,
   },
 });
 

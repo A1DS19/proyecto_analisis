@@ -25,36 +25,49 @@ export const CompleteOrderSidebar: React.FC<CompleteOrderSidebarProps> = ({
   submitting,
 }): JSX.Element => {
   return (
-    <Box bg='gray.700' padding={3} borderRadius='lg'>
-      <Button
-        disabled={!isFormValid}
-        isLoading={submitting}
-        type='submit'
-        width='100%'
-        leftIcon={<CheckIcon />}
-        color='green.500'
-        variant='outline'
-      >
-        Completar orden
-      </Button>
-      <Divider mt={3} mb={2} />
-      <Heading fontSize='lg'>Resumen de orden</Heading>
+    <React.Fragment>
+      <Box bg='gray.700' padding={3} borderRadius='lg'>
+        <Button
+          disabled={!isFormValid}
+          isLoading={submitting}
+          type='submit'
+          width='100%'
+          leftIcon={<CheckIcon />}
+          color='green.500'
+          variant='outline'
+        >
+          Completar orden
+        </Button>
+        <Divider mt={3} mb={2} />
+        <Heading fontSize='lg'>Resumen de orden</Heading>
 
-      <Box my={2}>
-        <Box my={1}>
-          <Text>Items: ₡{total}</Text>
+        <Box my={2}>
+          <Box my={1}>
+            <Text>Items: ₡{total}</Text>
+          </Box>
+          <Box my={1}>
+            <Text>Envio: ₡{storePickup ? 0 : envio}</Text>
+          </Box>
         </Box>
-        <Box my={1}>
-          <Text>Envio: ₡{storePickup ? 0 : envio}</Text>
+
+        <Box display='flex' margin='auto 0'>
+          <Heading fontSize='2xl'>Total orden:</Heading>
+          <Heading color='orange.300' fontSize='2xl' margin='auto 0' ml={2}>
+            ₡{total + (storePickup ? 0 : envio)}
+          </Heading>
         </Box>
       </Box>
 
-      <Box display='flex' margin='auto 0'>
-        <Heading fontSize='2xl'>Total orden:</Heading>
-        <Heading color='orange.300' fontSize='2xl' margin='auto 0' ml={2}>
-          ₡{total + (storePickup ? 0 : envio)}
-        </Heading>
-      </Box>
-    </Box>
+      {props.values.paymentMethod === 'SINPE' && (
+        <Box padding={3} my={3} bg='gray.700' borderRadius='lg'>
+          <Heading textAlign='center' size='md'>
+            Información pago SINPE
+          </Heading>
+          <Divider my={3} />
+          <Text>Usuario: Sauchon Ng Barrantes </Text>
+          <Text>Tel: 7176-7933</Text>
+        </Box>
+      )}
+    </React.Fragment>
   );
 };

@@ -9,6 +9,7 @@ const OrderSchema = new mongoose.Schema(
     total: { type: Number },
     paymentMethod: { type: String },
     storePickup: { type: Boolean },
+    orderId: { type: Number },
     address: {
       type: Object,
       default: null,

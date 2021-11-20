@@ -1,6 +1,6 @@
 const { Order } = require('../models/Order');
+const { Product } = require('../models/Product');
 const { server_error } = require('../util/controllerFuncs');
-const mongoose = require('mongoose');
 
 module.exports.create_order = async function (req, res) {
   try {
@@ -11,7 +11,17 @@ module.exports.create_order = async function (req, res) {
     body.total = !body.storePickup ? body.total + 5000 : body.total;
     body.isDelivered = false;
 
+    const totalOrders = await Order.count();
     const order = await Order.create(body);
+
+    order.orderId = totalOrders + 1;
+    await order.save();
+
+    order.products.forEach(async (product) => {
+      const prd = await Product.findOne({ name: product.name });
+      prd.quantity -= product.selectedQuantity;
+      await prd.save();
+    });
 
     if (!order) {
       return res.status(400).json({ err: 'No se pudo crear orden' });
@@ -78,7 +88,7 @@ module.exports.fetch_orders_by_id = async function (req, res) {
     let orders = await Order.aggregate([
       {
         $addFields: {
-          tempOrderId: { $toString: '$_id' },
+          tempOrderId: { $toString: '$orderId' },
         },
       },
       {

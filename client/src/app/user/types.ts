@@ -28,6 +28,7 @@ export interface Address {
 
 export interface Order {
   id: string;
+  orderId: number;
   userId: string;
   products: CartItem[];
   total: number;

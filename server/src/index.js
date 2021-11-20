@@ -5,6 +5,7 @@ const { route: productsRoutes } = require('./routes/products');
 const { route: categoriesRoutes } = require('./routes/categories');
 const { route: userRoutes } = require('./routes/user');
 const { route: orderRoutes } = require('./routes/order');
+const { route: statisticsRoutes } = require('./routes/statistics');
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -20,6 +21,7 @@ const app = express();
   app.use(passport.initialize());
   require('./config/passportAuth');
 
+  app.use('/statistics', statisticsRoutes);
   app.use('/products', productsRoutes);
   app.use('/category', categoriesRoutes);
   app.use('/order', orderRoutes);

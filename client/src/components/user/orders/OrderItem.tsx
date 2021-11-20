@@ -45,7 +45,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order }): JSX.Element => {
         </Box>
 
         <Box>
-          <Text>Orden # {order.id}</Text>
+          <Text>Orden # {order.orderId}</Text>
         </Box>
       </Box>
       <Divider />
