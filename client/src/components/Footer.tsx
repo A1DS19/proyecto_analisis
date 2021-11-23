@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Stack, Text, Link, Center } from '@chakra-ui/react';
+import { Box, Container, Text, Center } from '@chakra-ui/react';
 
 interface FooterProps {}
 
@@ -9,12 +9,7 @@ export const Footer: React.FC<FooterProps> = (): JSX.Element => {
       <Container maxW='container.sm' padding={10}>
         <Center>
           <Box textAlign='center'>
-            <Stack direction='row' spacing={6}>
-              <Link href={'#'}>Inicio</Link>
-              <Link href={'#'}>Sobre</Link>
-              <Link href={'#'}>Contacto</Link>
-            </Stack>
-            <Text mt={2}>© {new Date().getFullYear()} DRAGON ROJO</Text>
+            <Text mt={2}>© {new Date().getFullYear()} DRAGÓN ROJO</Text>
           </Box>
         </Center>
       </Container>
