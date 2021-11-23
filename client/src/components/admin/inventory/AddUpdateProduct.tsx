@@ -157,13 +157,13 @@ export const AddUpdateProduct: React.FC<IAddUpdateProduct> = (): JSX.Element => 
                     </FormControl>
 
                     <FormControl my={4}>
-                      <FormLabel>Categoria del producto</FormLabel>
+                      <FormLabel>Categoría del producto</FormLabel>
                       <Select
                         name='category'
                         value={props.values.category}
                         onChange={props.handleChange}
                         onBlur={props.handleBlur}
-                        placeholder='Seleccione la categoria'
+                        placeholder='Seleccione la categoría'
                       >
                         {categories.map((item) => {
                           return (
@@ -178,9 +178,9 @@ export const AddUpdateProduct: React.FC<IAddUpdateProduct> = (): JSX.Element => 
                     </FormControl>
 
                     <FormControl my={4}>
-                      <FormLabel>Descripcción del producto</FormLabel>
+                      <FormLabel>Descripción del producto</FormLabel>
                       <Textarea
-                        placeholder='Descripcción del producto'
+                        placeholder='Descripción del producto'
                         name='description'
                         value={props.values.description}
                         onChange={props.handleChange}

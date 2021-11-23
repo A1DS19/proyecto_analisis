@@ -59,9 +59,9 @@ export const AddressForm: React.FC<AddressFormProps> = ({ props }): JSX.Element 
 
       {provincia && (
         <FormControl my={1}>
-          <FormLabel>Canton</FormLabel>
+          <FormLabel>Cantón</FormLabel>
           <Select
-            placeholder='Canton'
+            placeholder='Cantón'
             name='address.canton'
             onChange={async (e) => {
               const index = e.target.value;
@@ -105,9 +105,9 @@ export const AddressForm: React.FC<AddressFormProps> = ({ props }): JSX.Element 
 
       {distrito && (
         <FormControl my={1}>
-          <FormLabel>Direccion exacta</FormLabel>
+          <FormLabel>Dirección exacta</FormLabel>
           <Textarea
-            placeholder='Direccion'
+            placeholder='Dirección'
             name='address.direccionExacta'
             onChange={(e) => {
               props.handleChange(e);

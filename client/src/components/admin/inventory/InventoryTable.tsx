@@ -62,8 +62,8 @@ export const InventoryTable: React.FC<InventoryTableProps> = ({
         <Thead>
           <Tr>
             <Th>nombre</Th>
-            <Th>categoria</Th>
-            <Th>descripcción</Th>
+            <Th>categoría</Th>
+            <Th>descripción</Th>
             <Th isNumeric>cantidad</Th>
             <Th isNumeric>precio</Th>
             <Th>acciones</Th>

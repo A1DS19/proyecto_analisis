@@ -62,7 +62,7 @@ export const StatisticsIndex: React.FC<StatisticsIndexProps> = (): JSX.Element =
       </Box>
 
       <Box my={9}>
-        <Heading size='lg'>Productos mas reservados</Heading>
+        <Heading size='lg'>Productos más reservados</Heading>
         <MostReservedProductsOrderList products={mostReservedProducts} />
       </Box>
 

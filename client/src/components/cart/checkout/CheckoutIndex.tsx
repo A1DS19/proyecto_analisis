@@ -52,7 +52,7 @@ export const CheckoutIndex: React.FC<CheckoutIndexProps> = (): JSX.Element => {
     <Container maxW='container.lg'>
       <Center mb={3}>
         <Heading size='lg'>
-          Checkout ({products.length} {products.length > 1 ? 'items' : 'item'})
+          Realizar pedido ({products.length} {products.length > 1 ? 'items' : 'item'})
         </Heading>
       </Center>
       <Formik

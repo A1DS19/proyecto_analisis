@@ -36,7 +36,7 @@ export const Auth: FunctionComponent<AuthMenuProps> = ({ user }): JSX.Element =>
           </Link>
 
           <Link to={`/user/${user.id}/orders`}>
-            <MenuItem>Ordenes</MenuItem>
+            <MenuItem>Órdenes</MenuItem>
           </Link>
 
           {user.admin && (

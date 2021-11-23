@@ -48,7 +48,7 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = (): JSX.Element => 
             <Form>
               <Container maxWidth='container.sm'>
                 <Heading my={3} size='lg'>
-                  Olvide mi contraseña
+                  Olvidé mi contraseña
                 </Heading>
 
                 {emailSent && (

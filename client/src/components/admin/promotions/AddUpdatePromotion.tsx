@@ -49,7 +49,7 @@ export const AddUpdatePromotion: React.FC<AddUpdatePromotionProps> = ({
     <React.Fragment>
       <Heading size='lg'>
         {!isUpdate
-          ? 'Agregar promocion'
+          ? 'Agregar promoción'
           : `Actualizar ${capitalizeWord(selectedPromotion?.name.replaceAll('_', ' ')!)}`}
       </Heading>
       <Formik

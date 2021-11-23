@@ -49,7 +49,7 @@ export const Login: FunctionComponent<loginProps> = ({
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Iniciar Sesion</ModalHeader>
+          <ModalHeader>Iniciar Sesión</ModalHeader>
           <ModalCloseButton onClick={() => dispatch(clearErrorMessage())} />
           <Formik
             initialValues={initialValues}
@@ -102,7 +102,7 @@ export const Login: FunctionComponent<loginProps> = ({
 
                     <Box mt={1}>
                       <Link href='/auth/forgot_password' color='blue.400'>
-                        Olvide mi contraseña
+                        Olvidé mi contraseña
                       </Link>
                     </Box>
                   </ModalBody>

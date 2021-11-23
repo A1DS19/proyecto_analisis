@@ -8,18 +8,18 @@ export const registerValidationSchema = Yup.object({
   name: Yup.string().required('Debe ingresar su primer nombre'),
   lastName: Yup.string().required('Debe ingresar su primer apellido'),
   phoneNumber: Yup.string()
-    .required('Debe ingresar su numero telefonico')
-    .matches(/^[0-9]+$/, 'Numero telefonico invalido')
-    .min(8, 'Numero telefonico invalido')
-    .max(8, 'Numero telefonico invalido'),
+    .required('Debe ingresar su número telefónico')
+    .matches(/^[0-9]+$/, 'Número telefónico invalido')
+    .min(8, 'Número telefónico invalido')
+    .max(8, 'Número telefónico invalido'),
   idNumber: Yup.string()
-    .required('Debe ingresar su numero de cedula')
-    .matches(/^[0-9]+$/, 'Numero de cedula invalido')
-    .min(9, 'Numero de cedula invalido')
-    .max(9, 'Numero de cedula invalido'),
+    .required('Debe ingresar su número de cédula')
+    .matches(/^[0-9]+$/, 'Número de cédula invalido')
+    .min(9, 'Número de cédula invalido')
+    .max(9, 'Número de cédula invalido'),
   password: Yup.string()
     .required('La contraseña es requerida')
-    .min(5, 'Minimo 5 caracteres'),
+    .min(5, 'Mínimo 5 caracteres'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Las contrasenas deben ser iguales')
     .required('Repetir la contraseña es requerido'),
@@ -32,7 +32,7 @@ export const loginValidationSchema = Yup.object({
     .lowercase(),
   password: Yup.string()
     .required('La contraseña es requerida')
-    .min(5, 'Minimo 5 caracteres'),
+    .min(5, 'Mínimo 5 caracteres'),
 });
 
 export const requestPasswordReset = Yup.object({
@@ -45,7 +45,7 @@ export const requestPasswordReset = Yup.object({
 export const passwordReset = Yup.object({
   password: Yup.string()
     .required('La contraseña es requerida')
-    .min(5, 'Minimo 5 caracteres'),
+    .min(5, 'Mínimo 5 caracteres'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Las contrasenas deben ser iguales')
     .required('Repetir la contraseña es requerido'),
@@ -54,7 +54,7 @@ export const passwordReset = Yup.object({
 export const resetPasswordSchema = Yup.object({
   password: Yup.string()
     .required('La contraseña es requerida')
-    .min(5, 'Minimo 5 caracteres'),
+    .min(5, 'Mínimo 5 caracteres'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Las contrasenas deben ser iguales')
     .required('Repetir la contraseña es requerido'),
@@ -64,15 +64,15 @@ export const updateUserValidationSchema = Yup.object({
   name: Yup.string().required('Debe ingresar su primer nombre'),
   lastName: Yup.string().required('Debe ingresar su primer apellido'),
   phoneNumber: Yup.string()
-    .required('Debe ingresar su numero telefonico')
-    .matches(/^[0-9]+$/, 'Numero telefonico invalido')
-    .min(8, 'Numero telefonico invalido')
-    .max(8, 'Numero telefonico invalido'),
+    .required('Debe ingresar su número telefónico')
+    .matches(/^[0-9]+$/, 'Número telefónico invalido')
+    .min(8, 'Número telefónico invalido')
+    .max(8, 'Número telefónico invalido'),
   idNumber: Yup.string()
-    .required('Debe ingresar su numero de cedula')
-    .matches(/^[0-9]+$/, 'Numero de cedula invalido')
-    .min(9, 'Numero de cedula invalido')
-    .max(9, 'Numero de cedula invalido'),
+    .required('Debe ingresar su número de cédula')
+    .matches(/^[0-9]+$/, 'Número de cédula invalido')
+    .min(9, 'Número de cédula invalido')
+    .max(9, 'Número de cédula invalido'),
 });
 
 export const addUpdateValidationSchema = Yup.object({
@@ -83,13 +83,13 @@ export const addUpdateValidationSchema = Yup.object({
   name: Yup.string().required('Debe ingresar su primer nombre'),
   lastName: Yup.string().required('Debe ingresar su primer apellido'),
   phoneNumber: Yup.string()
-    .required('Debe ingresar su numero telefonico')
-    .matches(/^[0-9]+$/, 'Numero telefonico invalido')
-    .min(8, 'Numero telefonico invalido')
-    .max(8, 'Numero telefonico invalido'),
+    .required('Debe ingresar su número telefónico')
+    .matches(/^[0-9]+$/, 'Número telefónico invalido')
+    .min(8, 'Número telefónico invalido')
+    .max(8, 'Número telefónico invalido'),
   idNumber: Yup.string()
-    .required('Debe ingresar su numero de cedula')
-    .matches(/^[0-9]+$/, 'Numero de cedula invalido')
-    .min(9, 'Numero de cedula invalido')
-    .max(9, 'Numero de cedula invalido'),
+    .required('Debe ingresar su número de cédula')
+    .matches(/^[0-9]+$/, 'Número de cédula invalido')
+    .min(9, 'Número de cédula invalido')
+    .max(9, 'Número de cédula invalido'),
 });

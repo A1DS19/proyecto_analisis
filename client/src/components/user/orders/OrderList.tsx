@@ -16,7 +16,7 @@ export const OrderList: React.FC<OrderListProps> = ({ orders }): JSX.Element => 
 
   return (
     <React.Fragment>
-      <Heading>Total de ordenes: {orders.length}</Heading>
+      <Heading>Total de órdenes: {orders.length}</Heading>
       {renderOrders()}
     </React.Fragment>
   );

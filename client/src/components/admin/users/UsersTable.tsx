@@ -67,7 +67,7 @@ export const UsersTable: React.FC<UsersTableProps> = ({ users }): JSX.Element =>
             <Th>apellido</Th>
             <Th>email</Th>
             <Th>celular</Th>
-            <Th>cedula</Th>
+            <Th>cédula</Th>
             <Th>admin</Th>
             <Th>acciones</Th>
           </Tr>

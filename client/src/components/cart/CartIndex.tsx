@@ -96,7 +96,7 @@ export const CartIndex: React.FC<CartIndexProps> = (): JSX.Element => {
                   mt={0.5}
                   fontSize='2xl'
                 />
-                Checkout
+                Continuar
               </Flex>
             </Box>
           </Tooltip>

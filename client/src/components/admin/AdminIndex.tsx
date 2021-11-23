@@ -13,11 +13,11 @@ export const AdminIndex: React.FC<AdminIndexProps> = (): JSX.Element => {
   return (
     <Tabs isFitted variant='enclosed' my={2}>
       <TabList my={2}>
-        <Tab>Estadisticas</Tab>
+        <Tab>Estadísticas</Tab>
         <Tab>Inventario</Tab>
         <Tab>Promociones</Tab>
         <Tab>Categorías</Tab>
-        <Tab>Ordenes</Tab>
+        <Tab>Órdenes</Tab>
         <Tab>Usuarios</Tab>
       </TabList>
       <TabPanels>

@@ -51,7 +51,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order }): JSX.Element => {
     if (!JSON.parse(order.storePickup)) {
       return (
         <React.Fragment>
-          <Heading size='md'>Dirección de envio</Heading>
+          <Heading size='md'>Dirección de envío</Heading>
           <Box my={1}>
             <Flex>
               <Heading size='sm'>Provincia:</Heading>
@@ -103,7 +103,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order }): JSX.Element => {
           </Text>
         </Flex>
         <Flex my={1}>
-          <Heading size='sm'>Cedula:</Heading>
+          <Heading size='sm'>Cédula:</Heading>
           <Text mt='-0.5' mx='1'>
             {(userId as any).idNumber}
           </Text>
@@ -148,13 +148,13 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order }): JSX.Element => {
 
           <Box>
             <Text>
-              {JSON.parse(order.storePickup) ? 'Recoje en tienda' : 'Envio a domicilio'}
+              {JSON.parse(order.storePickup) ? 'Recoje en tienda' : 'Envío a domicilio'}
             </Text>
             <CheckIcon color='green' fontSize='2xl' />
           </Box>
 
           <Box>
-            <Text>Metodo de pago</Text>
+            <Text>Método de pago</Text>
             <Text color='orange.300'>{order.paymentMethod.replaceAll('_', ' ')}</Text>
           </Box>
 

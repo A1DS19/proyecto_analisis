@@ -15,7 +15,7 @@ export const TotalIncomeOrders: React.FC<TotalIncomeOrdersProps> = ({
         <StatLabel fontSize='lg'>Ganancia monetaria</StatLabel>
         <StatNumber>₡{totalIncomeOrders.totalRevenue}</StatNumber>
         <StatHelpText>
-          Cantidad total de ordenes {totalIncomeOrders.totalOrders}
+          Cantidad total de órdenes {totalIncomeOrders.totalOrders}
         </StatHelpText>
       </Stat>
     </React.Fragment>

@@ -136,9 +136,9 @@ export const Register: FunctionComponent<registerProps> = ({
                     </FormControl>
 
                     <FormControl mt={4}>
-                      <FormLabel>Numero de cedula</FormLabel>
+                      <FormLabel>Número de cédula</FormLabel>
                       <Input
-                        placeholder='Cedula'
+                        placeholder='Cédula'
                         name='idNumber'
                         value={props.values.idNumber}
                         onChange={props.handleChange}

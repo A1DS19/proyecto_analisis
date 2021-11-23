@@ -14,10 +14,10 @@ export const TotalOrdersPickup: React.FC<TotalOrdersPickupProps> = ({
   return (
     <React.Fragment>
       <Stat>
-        <StatLabel fontSize='lg'>Total ordenes en sitio</StatLabel>
+        <StatLabel fontSize='lg'>Total órdenes en sitio</StatLabel>
         <StatNumber>{amountOrdersPickup}</StatNumber>
         <StatHelpText>
-          Porcentage sobre total de ordenes{' '}
+          Porcentage sobre total de órdenes{' '}
           {Math.floor((amountOrdersPickup / totalIncomeOrders.totalOrders) * 100)}%
         </StatHelpText>
       </Stat>

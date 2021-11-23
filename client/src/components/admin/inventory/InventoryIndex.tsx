@@ -2,7 +2,6 @@ import { Alert, AlertIcon, Box, Button, Spinner } from '@chakra-ui/react';
 import React from 'react';
 import { fetchProducts } from '../../../app/admin/adminActions';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { FullSpinner } from '../../common/FullSpinner';
 import { SearchProduct } from './SearchProduct';
 import { InventoryTable } from './InventoryTable';
 import { AddIcon } from '@chakra-ui/icons';

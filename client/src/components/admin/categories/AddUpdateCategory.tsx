@@ -33,7 +33,7 @@ export const AddUpdateCategory: React.FC<AddUpdateCategoryProps> = ({
     <React.Fragment>
       <Heading size='lg'>
         {!isUpdate
-          ? 'Agregar categoria'
+          ? 'Agregar categoría'
           : `Actualizar ${capitalizeWord(selectedCategory?.name.replaceAll('_', ' ')!)}`}
       </Heading>
 
@@ -79,7 +79,7 @@ export const AddUpdateCategory: React.FC<AddUpdateCategoryProps> = ({
                 <FormLabel>Nombre de categoria</FormLabel>
                 <Input
                   name='name'
-                  placeholder='Nombre de categoria'
+                  placeholder='Nombre de categoría'
                   value={props.values.name.replaceAll('y', ' ')}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}

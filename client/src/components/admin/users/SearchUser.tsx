@@ -63,7 +63,7 @@ export const SearchUser: React.FC<SearchUserProps> = (): JSX.Element => {
                   }}
                   onBlur={props.handleBlur}
                   size='md'
-                  placeholder='Buscar usuario por cedula'
+                  placeholder='Buscar usuario por cédula'
                   focusBorderColor='gray.500'
                 />
                 {loading && <Spinner margin='auto 0' ml={2} />}

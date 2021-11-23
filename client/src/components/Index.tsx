@@ -30,7 +30,7 @@ export const Index: React.FC<IndexProps> = (): JSX.Element => {
           }}
           leftIcon={<AddIcon />}
         >
-          Ver mas
+          Ver más
         </Button>
       );
     } else if (loading) {
@@ -39,7 +39,7 @@ export const Index: React.FC<IndexProps> = (): JSX.Element => {
       return (
         <Alert maxW='40%' status='info' borderRadius='lg'>
           <AlertIcon />
-          Ya no hay mas productos!
+          Ya no hay más productos!
         </Alert>
       );
     }
