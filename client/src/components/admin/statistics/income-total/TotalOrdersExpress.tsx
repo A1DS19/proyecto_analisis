@@ -17,7 +17,7 @@ export const TotalOrdersExpress: React.FC<TotalOrdersExpressProps> = ({
         <StatLabel fontSize='lg'>Total órdenes express</StatLabel>
         <StatNumber>{amountOrdersExpress}</StatNumber>
         <StatHelpText>
-          Porcentage sobre total de órdenes{' '}
+          Porcentaje sobre total de órdenes{' '}
           {Math.floor((amountOrdersExpress / totalIncomeOrders.totalOrders) * 100)}%
         </StatHelpText>
       </Stat>
