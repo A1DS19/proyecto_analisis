@@ -4,7 +4,6 @@ import {
   useColorModeValue,
   Stack,
   Heading,
-  Avatar,
   Image,
   Text,
 } from '@chakra-ui/react';
@@ -30,12 +29,14 @@ export const OrderItem: React.FC<OrderItemProps> = ({ product }): JSX.Element =>
           overflow={'hidden'}
         >
           <Box h={'140px'} bg={'gray.100'} mt={-6} mx={-6} mb={6} pos={'relative'}>
-            <Image
-              src={product.images[0].url}
-              width='140px'
-              height='140px'
-              layout={'fill'}
-            />
+            <Center>
+              <Image
+                src={product.images[0].url}
+                width='140px'
+                height='140px'
+                layout={'fill'}
+              />
+            </Center>
           </Box>
           <Stack>
             <Heading
