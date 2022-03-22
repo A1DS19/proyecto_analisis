@@ -24,6 +24,8 @@ interface OrderItemProps {
 }
 
 export const OrderItem: React.FC<OrderItemProps> = ({ order }): JSX.Element => {
+  const { userId } = order;
+
   const [show, setShow] = React.useState(false);
   const [selectedOrder, setSelectedOrder] = React.useState<Order | null>(null);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -46,6 +48,8 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order }): JSX.Element => {
       updateOrderStateAction({ id: newOrderValues.id!, input: newOrderValues as Order })
     );
   };
+
+  console.log(order);
 
   const renderUserAddress = (): JSX.Element | null => {
     if (!JSON.parse(order.storePickup)) {
@@ -86,32 +90,31 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order }): JSX.Element => {
   };
 
   const renderUserDetails = (): JSX.Element => {
-    const { userId } = order;
     return (
       <React.Fragment>
         <Heading size='md'>Detalles de usuario</Heading>
         <Flex my={1}>
           <Heading size='sm'>Nombre:</Heading>
           <Text mt='-0.5' mx='1'>
-            {(userId as any).name}
+            {(userId as any).name || ''}
           </Text>
         </Flex>
         <Flex my={1}>
           <Heading size='sm'>Apellido:</Heading>
           <Text mt='-0.5' mx='1'>
-            {(userId as any).lastName}
+            {(userId as any).lastName || ''}
           </Text>
         </Flex>
         <Flex my={1}>
           <Heading size='sm'>Cédula:</Heading>
           <Text mt='-0.5' mx='1'>
-            {(userId as any).idNumber}
+            {(userId as any).idNumber || ''}
           </Text>
         </Flex>
         <Flex my={1}>
           <Heading size='sm'>Numero telefonico:</Heading>
           <Text mt='-0.5' mx='1'>
-            {(userId as any).phoneNumber}
+            {(userId as any).phoneNumber || ''}
           </Text>
         </Flex>
       </React.Fragment>
@@ -199,7 +202,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ order }): JSX.Element => {
               )}
             </GridItem>
             <GridItem>{renderUserAddress()}</GridItem>
-            <GridItem>{renderUserDetails()}</GridItem>
+            {userId && <GridItem>{renderUserDetails()}</GridItem>}
           </Grid>
         </Box>
       </Box>
